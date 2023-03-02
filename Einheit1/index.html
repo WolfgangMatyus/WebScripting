@@ -6,10 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/myscript.js"></script>
     <title>JavaScript Demo</title>
+
+    <script>
+        function changeText(){
+            console.log("Test");
+            document.getElementById("ue1").innerHTML = "Neuer Text"
+        }
+        
+
+    </script>
+
 </head>
 <body>
 
-    <h1>Hello JavaScript</h1>
+    <h1 style="background-color: red;"
+    
+    onmouseover="this.innerHTML = 'Neu!'"
+    onmouseout="this.innerHTML = 'Hello JavaScript'"
+
+    
+    >Hello JavaScript</h1>
+
+    <h1 id="ue1" style="background-color: green;">Hello JavaScript</h1>
+    <button onclick="cangeText()">Change Text</button>
+
 
 </body>
 </html>
