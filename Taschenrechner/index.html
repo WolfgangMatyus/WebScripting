@@ -4,10 +4,100 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/myscript.js"></script>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <script src="js/myscript.js"></script> 
     <title>Taschenrechner</title>
 </head>
 <body>
-    <p>Hello World</p>
+
+<div class="container">
+
+    <div class="header">
+        <h2>Taschenrechner</h2>
+    </div>
+    <hr>
+
+    <div class="display">
+        <div>
+            <input type="text" id="inputBox" class="inputBox" placeholder="0">
+        </div>
+        <div>
+            <input type="result" id="result" class="result" placeholder="Ergebnis">
+        </div>
+        
+    </div>
+    <div class="keyBorad">
+        <div class="row">
+            <div class="col-3">
+                <button type="button" class="operators" id="+"
+                onclick="addDigit(this.id)">+</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="operators" id="-"
+                onclick="addDigit(this.id)">-</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="operators" id="*"
+                onclick="addDigit(this.id)">*</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="operators" id="/"
+                onclick="addDigit(this.id)">/</button>
+            </div>           
+        </div> 
+
+
+            <div class="row">
+                <div class="col-9">
+                    <div class="row">
+                        <button type="button" class="nums" id="1" 
+                        onclick="addDigit(this.id)">1</button>
+                        <button type="button" class="nums" id="2"
+                        onclick="addDigit(this.id)">2</button>
+                        <button type="button" class="nums" id="3"
+                        onclick="addDigit(this.id)">3</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="nums" id="4"
+                        onclick="addDigit(this.id)">4</button>
+                        <button type="button" class="nums" id="5"
+                        onclick="addDigit(this.id)">5</button>
+                        <button type="button" class="nums" id="6"
+                        onclick="addDigit(this.id)">6</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="nums" id="7"
+                        onclick="addDigit(this.id)">7</button>
+                        <button type="button" class="nums" id="8"
+                        onclick="addDigit(this.id)">8</button>
+                        <button type="button" class="nums" id="9"
+                        onclick="addDigit(this.id)">9</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="nums" id="."
+                        onclick="addDigit(this.id)">,</button>
+                        <button type="button" class="nums" id="0"
+                        onclick="addDigit(this.id)">0</button>
+                        <button type="button" class="nums" id="clear"
+                        onclick="clearContent()">C</button>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button type="button" id="calculate"
+                    onclick="calculate()">=</button>
+                </div>
+            </div>
+            
+    </div>
+
+        <div class="log">
+            <p>Log:</p>
+            <p id="log"></p>
+        </div>
+
+</div>  
+
+
+<script src="js/myscript.js"></script> 
 </body>
 </html>
