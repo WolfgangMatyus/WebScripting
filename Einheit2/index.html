@@ -4,44 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/mystyle.css">
-    <script src="js/myscript.js"></script> 
-    <title>Einheit2</title>
+    <script src="js/myscript.js"></script>
+    <title>JavaScript Demo</title>
+    <script>
+
+        var name = prompt("What's your Name?");
+
+    </script>
 </head>
 <body>
 
-    <p>Hello World</p>
-
-<div class="container">
-
-    <div class="col">
-        <div class="tile">00</div>
-        <div class="tile">10</div>
-        <div class="tile">20</div>
-        <div class="tile">30</div>
-    </div>
-
-    <div class="col">
-        <div class="tile">01</div>
-        <div class="tile">11</div>
-        <div class="tile">21</div>
-        <div class="tile">31</div>
-    </div>
-
-    <div class="col">
-        <div class="tile">02</div>
-        <div class="tile">12</div>
-        <div class="tile">22</div>
-        <div class="tile">32</div>
-    </div>
-    <div class="col">
-        <div class="tile">03</div>
-        <div class="tile">13</div>
-        <div class="tile">23</div>
-        <div class="tile">33</div>
-    </div>
+    <h1 style="background-color: red;"
     
-</div>
+    onmouseover="this.innerHTML = 'Neu!'"
+    onmouseout="this.innerHTML = 'Hello JavaScript'"
+
+    >Hello JavaScript</h1>
+
+    <h1 id="ue1" style="background-color: green;">Hello JavaScript</h1>
+    <button type="button" onclick="changeText()">Change Text</button>
+
+    <div id="content">
+        CONTENT
+    </div>
+    <button onclick="createMyNode()">Create Node</button>
+
+<script>
+    for(var i = 1; i<=16; i++){
+        function createMyNode(){
+            var divNeu = document.createElement("div");
+            //divNeu.innerHTML = "Neuer Text";
+            var textNeu = document.createTextNode("Hello Wold");
+            divNeu.appendChild(textNeu);
+            divNeu.setAttribute("class", "eineKlasse");
+            //divNeu.className = "eineKlasse";
+            divNeu.setAttribute("id", "meinDiv"+i);
+            divNeu.style.backgroundColor = "blue";
+            //divNeu.setAttribute("onclick", "eineFunktion()")
+            divNeu.setAttribute("onclick", "eineFunktion1(this)")
+            document.getElementById("content").appendChild(divNeu);
+        }
+    }
+    
+    function eineFunktion(){
+        alert("funkt");
+        var divreferenz=document.getElementById("meinDiv");
+        document.getElementById("meinDiv").parentNode.removeChild(divreferenz);
+    }
+
+
+    function eineFunktion1(x){
+        x.parentNode.removeChild(x);
+    }
+</script>
     
 
 
