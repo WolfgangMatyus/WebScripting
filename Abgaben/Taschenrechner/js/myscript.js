@@ -1,3 +1,5 @@
+
+
 function calculate(){
     var inputArr = document.getElementById("inputBox").value.split('');
     var numberA = [];
