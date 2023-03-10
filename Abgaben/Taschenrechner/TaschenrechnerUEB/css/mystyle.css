@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+button{
+    display: block !important;
+    margin: 10px;
+    width: 50px;
+    height: 50px
+}
+
+.buttons{
+    float: left;
+    margin: 30px 20px 40px 20px;
+}
+
+.inputContainer{
+    float: left;
+    min-width: 20rem;
+}
+
+#Verlauf{
+    max-width: 25rem;
+    min-width: 20rem;
+}

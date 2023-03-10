@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="css/mystyle.css" rel="stylesheet">
+    <script src="js/myscript.js"></script>
+    <title>TaschenrechnerUEB</title>
+</head>
+<body>
+
+<div class="container">
+    <h2>Taschenrechner</h2>
+
+    <div class="inputContainer col-5">
+        <div class="mb-3">
+            <label for="zahl1" class="form-label">Eingabe Zahl 1</label>
+            <input type="number" class="form-control" id="zahl1" placeholder="0">
+        </div>
+          
+        <div class="mb-3">
+            <label for="zahl2" class="form-label">Eingabe Zahl 2</label>
+            <input type="number" class="form-control" id="zahl2" placeholder="0">
+        </div>
+
+        <div class="card border-secondary mb-5" id="Ergebnis">
+            <div class="card-header">Ergebnis</div>
+            <div class="card-body text-secondary">
+                <div id="ergebnis" class="outputBox">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button type="button" class="btn btn-primary" id="+" onclick="calculate(this.id)">+</button>
+        <button type="button" class="btn btn-primary" id="-" onclick="calculate(this.id)">-</button>
+        <button type="button" class="btn btn-primary" id="*" onclick="calculate(this.id)">*</button>
+        <button type="button" class="btn btn-primary" id="/" onclick="calculate(this.id)">/</button>
+    </div>
+
+    <div class="card border-secondary mb-5" id="Verlauf">
+        <div class="card-header">Bisheriger Verlauf:</div>
+        <div class="card-body text-secondary">
+            <div id="verlauf" class="outputBox"></div>
+      </div>
+    </div>
+</div>      
+</body>
+</html>
