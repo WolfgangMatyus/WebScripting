@@ -9,28 +9,23 @@ function getName() {
 }
 
 function erstelleSpielbereich(){
-    const cols = 4;
-    const rows = 4;
     
     let arr =[];
     let count=0; 
-    for(let x = 0; x < rows; x++){
-        arr[x] = [];
-            for(var y = 0; y < cols; y++){   
+    for(let x = 0; x < 16; x++){  
             var divKarte = document.createElement("div");
                 divKarte.setAttribute("class", "card");
                 divKarte.setAttribute("id", (count+1));
-                divKarte.setAttribute("onclick", "showCard(this)");
                 if(count % 4 == 0){
                     divKarte.style.clear = "left";
                 }
-            arr[x][y] = divKarte
+            arr[x] = divKarte
             count++;
             document.getElementById("spielbereich").appendChild(divKarte);
         }
+        console.log(arr);
     }
-    console.log(arr);
-}
+
 
 function shuffel(){
 
@@ -39,6 +34,7 @@ function shuffel(){
 function startGame(){
     startTime();
     showTrys();
+    divKarte.setAttribute("onclick", "showCard(this)");
 }
 
 function startTime(){
@@ -55,7 +51,6 @@ function startTime(){
 
 function showCard(card){ 
     trys++;
-    //alert(trys)
     if(trys % 2 == 0){
         card.style.backgroundImage = "url(../Memory/pics/card" + card.id + ".png)";
         totalTrys++
