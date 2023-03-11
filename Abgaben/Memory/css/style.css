@@ -30,7 +30,7 @@ color: white;
 .card{
 	height:66px;
 	width:66px;
-	background-image:url(../pics/memoryBg.png);
+	background-image:url(../pics/memoryBgI.png);
 	float:left;
 	margin:2px;
 }
