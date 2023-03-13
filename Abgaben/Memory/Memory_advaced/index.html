@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="css/style.css">
+    <script src="js/myscript.js"></script>
+    <title>Memory Spiel</title>
+  </head>
+    <body onload="getName()">
+    
+  <div class="container">
+    <div class="infobox clickable">
+      <div class="labels">
+        <div id="name" onclick="getName()">Spieler:</div> 
+      </div>
+    </div>
+
+    <div class="infobox clickable">
+      <div class="labels">
+        <div id="start" onclick="starteSpiel()">Start Game</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="infobox">
+        <div class="labels">
+            <div id="totalTrys">Versuche: 00</div>
+        </div>
+  </div>
+      <div class="infobox">
+        <div class="labels">
+            <div id="zeit">Zeit: 00:00</div>
+        </div>
+      </div>
+
+  <div class="container">   
+      <div class="infobox" id = "scorebox">
+        <div class="labels">
+          <div>Highscore:</div>
+            <ol id="score"></ol>
+        </div>
+      </div> 
+        <div id = "spielbereich">
+      </div>
+  </div>
+  </body>
+</html>

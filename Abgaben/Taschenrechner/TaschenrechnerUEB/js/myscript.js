@@ -40,7 +40,6 @@ function divide(){
 }
 
 function writeLog(logline){
-    //alert("writeLog" + logline);
     const logs = "<li>" + logline + "</li>" + document.getElementById("verlauf").innerHTML;
     document.getElementById("verlauf").innerHTML = logs;
 }
