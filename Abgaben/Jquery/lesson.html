@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/mystyle.css">
+    <script src="js/myscript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+    <title>Homework</title>
+</head>
+<body>
+
+    <a href="index.html">HOME</a>
+
+    <p id="hello">Some random text</p>
+
+    <script>
+        document.getElementById("hello").innerHTML = "Hi";
+    </script>
+
+    <div>
+        <p id="hello1">Some random text</p>
+    </div>
+
+    <script>
+        $(document).read(function(){
+            $("#hello").text("Hello World!")
+        })
+    </script>
+
+    <script>
+        $(function () {
+            $("#hello").text("Hi");
+        });
+    </script>
+
+    <script>
+        function onReady() {
+            alert("READY TO GO!");
+        }
+        $(document).ready(onReady);
+    </script>
+
+    <script>
+        function changeText() {
+            $("#hello").text("Hi");
+        }
+
+        $(document).ready(
+            $("button").click(changeText)
+        );
+    </script>
+
+    <h2>Debugging with console.log();</h2>
+    
+    <script>
+        function changeText() {
+            $("#hello").test("Hi");
+            console.log("Text changed");
+            //open developer tools and go to tab "Console"
+        }
+
+        $(document).ready(
+            $("button").click(changeText)
+        );
+    </script>
+
+    <h2>Selectors</h2>
+
+    <script>
+        $("*") // All elements
+        $("div") // All <div> elements
+        $(".blue") // All elements with class=blue
+        $(".blue.red") // All elements with class=blue AND class=red
+        $(".blue,.red") // All elements with class=blue OR class=red
+        $("#headline") // The (first) element with id=headline
+        $("[href]") // All elements with an href attribute
+        $("[href='example.com']") // All elements with href=example.com
+    </script>
+
+    <h2>Relational Operators</h2>
+
+    <script>
+        $("div span") // All <span>s that are descendants of a <div>
+        $("div > span")// All <span>s that are a direct child of a <div>
+        $("a ~ span") // All <span>s that are siblings following an <a>
+        $("a + span") // All <span>s that are immediately after an <a>
+    </script>
+
+    <h2>Types of Selectors</h2>
+
+    <ul>
+        <li>Type</li>
+        <li>Class</li>
+        <li>ID</li>
+        <li>Possessions of Attribute</li>
+        <li>Attribute Value</li>
+        <li>Indexed Selector</li>
+        <li>Pseudo-state</li>
+    </ul>
+
+    <h2>Selecting by Type (by this example)</h2>
+
+    <a href="index.html"></a> <!-- 1 -->
+    <a id="second-link"></a> <!-- 2 -->
+    <a class="example"></a> <!-- 3 -->
+    <a class="example" href="about.html"></a> <!-- 4 -->
+    <span class="example"></span> <!-- 5 -->
+    <script>
+
+        $("a") //selects all <a> elements (1,2,3,4)
+        $(".example") //selects all elements of class example (3,4,5)
+        $("#second-link") //selects the element with the given ID (2)
+    
+        $("[href='index.html']")
+            //selects all elements with href="index.html" (1)
+        $("a:first-of-type")
+            //selects only the first <a> element (1)
+            //other: :last-of-type, :first-child, :last-child
+    </script>
+
+    <h2>Each function</h2>
+
+    <ul>
+        <li>Webtechnologien</li>
+        <li>Web Scripting</li>
+    </ul>
+    <script>
+        function log_them(index) {
+        console.log(index + ": " + $(this).text());
+        }
+        $(document).ready(
+        $("li").each(log_them)
+        );
+    </script>
+
+    <h2>Get the attribute value of HTML element</h2>
+
+    <a href="https://www.technikum-wien.at/">FH Technikum Wien</a>
+    
+    <script>
+        $(document).ready(
+        value = $("a").attr("href"),
+        console.log(value)
+        );
+    </script>
+
+    <h2>Set the attribute value of HTML element</h2>
+
+    <a id="tech" href="https://www.technikum-wien.at/">FH Technikum Wien</a><br>
+    <a id="cis" href="https://cis.technikum-wien.at/">CIS</a><br>
+    <button>Change Links</button>
+    
+    <script>
+        function changeLinks() {
+            $("a").attr("href", "https://orf.at/"); //changes href-values of all <a> elements
+            $("[href='https://www.technikum-wien.at/']").attr("href", "https://orf.at/");
+                //changes href-values of all elements which matches "https://www.technikum-wien.at/"
+            $("#cis").attr("href", "https://orf.at/");
+                //changes href-value of first element with id="cis" - mind the "#"!
+            console.log("Links changed");
+        }
+        $(document).ready(
+            $("a").attr("title", "Click me"), //adds mouseover text "Click me" to all links
+            $("button").click(changeLinks)
+        );
+    </script>
+
+    <h2>Remove the attribute value of HTML element</h2>
+
+    <a id="tech1" href="https://www.technikum-wien.at/">FH Technikum Wien</a><br>
+    <a id="cis1" href="https://cis.technikum-wien.at/">CIS</a><br>
+    <button>Remove Links</button>
+    
+    <script>
+        function removeLinks() {
+            $("a").removeAttr("href"); //removes href-values of all <a> elements
+            $("[href='https://www.technikum-wien.at/']").removeAttr("href");
+                //removes href-values of all elements which matches "https://www.technikum-wien.at/"
+            $("#cis").removeAttr("href");
+                //removes href-value of first element with id="cis" - mind the "#"!
+            console.log("Links removed");
+        }
+        $(document).ready(
+            $("a").attr("title", "Click me"), //adds mouseover text "Click me" to all links
+            $("button").click(removeLinks)
+        );
+    </script>
+
+    <h2>Events</h2>
+
+    <ul>
+        <li><a href="https://www.technikum-wien.at/">FHTW</a></li>
+        <li><a href="https://cis.technikum-wien.at/">CIS</a></li>
+    </ul>
+
+    <script>
+        function logLinkClicked() {
+            console.log($(this).text() + " got clicked"); //.attr("href")
+        }
+        $(document).ready(
+            $("ul").on("click", "a", logLinkClicked)
+        );
+    </script>
+
+    <h2>CSS Manipulation</h2>
+
+    <p id="value"></p>
+    <script>
+        w = $("body").css("width");
+
+        $(document).ready(
+            $("#value").text(w),
+            console.log(w)
+        );
+    </script>
+
+    <h2>CSS Manipulation</h2>
+
+    <p id="value1"></p>
+    
+    <script>
+        function changeValue() {
+            w = $("body").css("width");
+            $("#value1").text(w)
+            console.log(w)
+        }
+        $(window).resize(changeValue)
+    </script>
+
+    <h2>CSS Manipulation</h2>
+
+    <button id="b1">A+</button><button id="b2">A-</button>
+    <p>Lorem ipsum dolor sit amet.</p><p>Lorem ipsum dolor sit amet.</p>
+    <script>
+        function increaseFontSize() {
+            $("p").css("font-size", "+=2");
+            console.log("+");
+        }
+        function decreaseFontSize() {
+            $("p").css("font-size", "-=2");
+            console.log("-");
+        }
+        $(document).ready(
+            $("#b1").on("click", increaseFontSize),
+            $("#b2").on("click", decreaseFontSize)
+        );
+    </script>
+
+    <h2>CSS Manipulation</h2>
+
+    <button id="b1">change Contrast</button><button id="b2">change back</button>
+    <p>Lorem ipsum dolor sit amet.</p><p>Lorem ipsum dolor sit amet.</p>
+    <script>
+        function changeContrast() {
+            $("body").css("background-color", "#FFFF42");
+            $("p").css("font-family", "sans-serif");
+            $("p").css("font-weight", "bold");
+        }
+        function setBackToDefault() {
+            $("body").removeAttr("style");
+            $("p").removeAttr("style"); //$("p").css("font-family", "");
+        }
+        $(document).ready(
+            $("#b1").on("click", changeContrast),
+            $("#b2").on("click", setBackToDefault)
+        );
+    </script>
+
+    <h2>Element Visibility</h2>
+
+    <script>
+        $(element).hide() // sets display: none
+        $(element).show() // sets display to original value
+        $(element).toggle() // toggles between the two
+        $(element).is(":visible") // returns true or false
+        $("element:visible") // matches all elements that are visible
+        $("element:hidden") // matches all elements that are hidden
+        $("element").fadeIn(); // display the element
+        $("element").fadeOut(); // hide the element
+        $("element").fadeIn(1000); // display the element using timer
+        $("element").fadeOut(1000); // hide the element using timer
+    </script>
+
+
+    <script>
+        // display the element using timer and a callback function
+        $("element").fadeIn(1000, function () {
+            // code to execute
+        });
+        // hide the element using timer and a callback function
+        $("element").fadeOut(1000, function () {
+            // code to execute
+        });
+    </script>
+
+    <h2>Element Visibility - Wait for effects to be finished</h2>
+
+    <script>
+        // display the element using timer and a callback function
+        $("#elementA").fadeIn(1000, function () {
+            // code to execute
+        });
+        $("#elementA").promise().done(function () {
+            // will be called when all animations in the queue of #elementA
+            // are finished
+            $("#elementB").hide();
+            $("#elementB").text("some content");
+            $("#elementB").fadeIn(300)
+        });
+    </script>
+
+    <h2>Appending elements to list</h2>
+
+    <input type="text" id="item">
+    <button id="add">add</button>
+    <ol></ol>
+
+    <script>
+        function addItem() {
+            e = $("#item").val();
+            $("ol").append("<li>" + e + "</li>");
+            console.log("element added");
+        }
+        $(document).ready(
+            $("#add").on("click", addItem)
+        );
+    </script>
+
+    <h2>Before</h2>
+
+    <div id="parent">
+        <span>other content</span>
+    </div>
+    <div id="child">
+    </div>
+
+    <h2>After</h2>
+
+    <div id="parent1">
+        <div id="child2">
+        </div>
+        <span>other content</span>
+        </div>
+
+    <script>
+        $('#parent').prepend($('#child')); //Solution 1
+        $('#child').prependTo($('#parent')); //Solution 2
+    </script>
+
+</body>
+</html>
