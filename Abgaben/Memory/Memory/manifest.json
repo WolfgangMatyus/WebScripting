@@ -1,0 +1,10 @@
+{
+    "name": "Super Mario Memory",
+    "short_name": "Memory",
+    "theme_color": "#c0c0c0",
+    "background_color": "#ab540f",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"      
+  }

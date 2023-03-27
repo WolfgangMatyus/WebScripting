@@ -64,7 +64,7 @@ function aktivieren(item){
     }else{
         item.setAttribute("onclick", "zeigeKarte(this)");
         item.setAttribute("class", "card clickable");
-        item.style.backgroundImage = "url(../MemoryUEB/pics/memoryBg.png)";
+        item.style.backgroundImage = "url(pics/memoryBg.png)";
     }   
 }
 
@@ -77,22 +77,22 @@ function zeigeKarte(card){
     trys++;
     if(trys % 2 == 0){
         pick2=card.id
-        card.style.backgroundImage = "url(../MemoryUEB/pics/card" + pick2 + ".png)";
+        card.style.backgroundImage = "url(pics/card" + pick2 + ".png)";
         totalTrys++
         zeigeVersuche();
         stapel.forEach(deaktivieren);
         turnTimer();
     }else{
         pick1=card.id
-        card.style.backgroundImage = "url(../MemoryUEB/pics/card" + pick1 + ".png)";
+        card.style.backgroundImage = "url(pics/card" + pick1 + ".png)";
     }
 }
 
 function dreheKarte(){
     if((Number(pick1)+Number(pick2)) == 17){
         count++
-        document.getElementById(pick1).style.backgroundImage = "url(../MemoryUEB/pics/memoryBgI.png)";
-        document.getElementById(pick2).style.backgroundImage = "url(../MemoryUEB/pics/memoryBgI.png)";
+        document.getElementById(pick1).style.backgroundImage = "url(pics/memoryBgI.png)";
+        document.getElementById(pick2).style.backgroundImage = "url(pics/memoryBgI.png)";
         document.getElementById(pick1).setAttribute("class", "card");
         document.getElementById(pick2).setAttribute("class", "card");
         document.getElementById(pick1).setAttribute("id", "cold"+pick1);
@@ -109,7 +109,7 @@ function dreheKarte(){
 }
 
 function turnTimer(){
-    setTimeout(dreheKarte, 1000);
+    setTimeout(dreheKarte, 2000);
 }
 
 function startTime(){
