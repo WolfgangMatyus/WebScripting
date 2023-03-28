@@ -1,6 +1,6 @@
 function addItem() {
     e = $("#item").val();
-    $("ol").append('<li>'+e+'<button class="btnUp">^</button><button class="btnDown">v</button><button class="rem">x</button></i></li>');
+    $("ol").append('<li>'+e+'<button class="btn btn-dark rem">x</button><button class="btn btn-dark btnUp">^</button><button class="btn btn-dark btnDown">v</button></li>');
     $("#item").val("");
     console.log("element added");
 }
@@ -26,9 +26,6 @@ function moveUp() {
     if (prevItem.length) {
         listItem.insertBefore(prevItem);
     }
-    console.log(this);
-    console.log(listItem);
-    console.log(prevItem);
     console.log("moved Item up");
 }
 
@@ -38,9 +35,6 @@ function moveDown() {
     if (nextItem.length) {
         listItem.insertAfter(nextItem);
     }
-    console.log(this);
-    console.log(listItem);
-    console.log(nextItem);
     console.log("moved Item down");
 }
 
@@ -52,9 +46,9 @@ $(document).ready(function() {
     $(".rem").attr("title", "Remove Item"),
     $("ol").on("click",".rem", removeThisItem),
     //hide show
-    $("#hide").attr("title", "Remove Item"),
+    $("#hide").attr("title", "Hide Item"),
     $("#hide").on("click", hideList),
-    $("#show").attr("title", "Remove Item"),
+    $("#show").attr("title", "Show Item"),
     $("#show").on("click", showList)
     //Change order
     $("ol").on("click",".btnUp", moveUp),   

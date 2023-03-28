@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/mystyle.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
     <script src="js/myscript.js"></script>    
@@ -14,14 +15,14 @@
 <container class="main">
     <h1>HOMEWORK 3</h1>
 
-    <h2>Appending elemts to list</h2>
-    <div>
-        <button id="hide">hide</button>
-        <button id="show">show</button>
-    </div>
-    <div>
+    <h2>Appending elemts to a ToDo-list</h2>
+    <div class="inputbar">        
         <input type="text" id="item">
-        <button id="add">add</button>
+        <button class="btn btn-dark"  id="add">add</button>
+    </div>
+    <div class="inputbar">
+        <button class="btn btn-dark" id="hide">hide</button>
+        <button class="btn btn-dark" id="show">show</button>
     </div>    
     <ol></ol>
     
@@ -46,7 +47,7 @@
             To design the Todo-list more user-friendly, remove the item from the input
             field after it got added it to the list.
         </p>
-    <h2>Show/hide the list</h2>
+    <h2>Show/Hide the list</h2>
         <p>
             Implement buttons to quickly hide or show the whole Todo-list.
         </p>

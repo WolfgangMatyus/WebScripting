@@ -9,5 +9,19 @@
 }
 
 li {
-    width:auto
+    width: 90%;
+    height: 50px;
+    margin: 2px;
+    padding: 10px;
+    background-color: lightskyblue;
+    border-radius: 5px;
 }
+
+li > button{
+    float: right;
+}
+
+.inputbar{
+    text-align: center;
+}
+
