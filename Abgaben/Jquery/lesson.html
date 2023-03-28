@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/mystyle.css">
-    <script src="js/myscript.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+    <script src="js/myscript.js"></script>    
     <title>Homework</title>
 </head>
 <body>
@@ -24,9 +24,9 @@
     </div>
 
     <script>
-        $(document).read(function(){
-            $("#hello").text("Hello World!")
-        })
+        //$(document).read(function(){
+        //    $("#hello").text("Hello World!")
+        //})
     </script>
 
     <script>
@@ -178,7 +178,7 @@
             $("a").removeAttr("href"); //removes href-values of all <a> elements
             $("[href='https://www.technikum-wien.at/']").removeAttr("href");
                 //removes href-values of all elements which matches "https://www.technikum-wien.at/"
-            $("#cis").removeAttr("href");
+            $("#cis1").removeAttr("href");
                 //removes href-value of first element with id="cis" - mind the "#"!
             console.log("Links removed");
         }
@@ -250,7 +250,7 @@
 
     <h2>CSS Manipulation</h2>
 
-    <button id="b1">change Contrast</button><button id="b2">change back</button>
+    <button id="b11">change Contrast</button><button id="b21">change back</button>
     <p>Lorem ipsum dolor sit amet.</p><p>Lorem ipsum dolor sit amet.</p>
     <script>
         function changeContrast() {
@@ -263,14 +263,15 @@
             $("p").removeAttr("style"); //$("p").css("font-family", "");
         }
         $(document).ready(
-            $("#b1").on("click", changeContrast),
-            $("#b2").on("click", setBackToDefault)
+            $("#b11").on("click", changeContrast),
+            $("#b21").on("click", setBackToDefault)
         );
     </script>
 
     <h2>Element Visibility</h2>
 
     <script>
+    /*
         $(element).hide() // sets display: none
         $(element).show() // sets display to original value
         $(element).toggle() // toggles between the two
@@ -281,6 +282,7 @@
         $("element").fadeOut(); // hide the element
         $("element").fadeIn(1000); // display the element using timer
         $("element").fadeOut(1000); // hide the element using timer
+    /*
     </script>
 
 
