@@ -6,17 +6,20 @@ function addItem() {
 }
 
 function removeThisItem(){
-    $(this).parent().remove();
+    //$(this).parent().remove();
+    $(this).parent().fadeOut("slow");
     console.log("element removed");
 }
 
 function hideList() {
-    $("ol").hide();
+    //$("ol").hide();
+    $("ol").slideUp("slow")
     console.log("list hidden");
 }
 
 function showList() {
-    $("ol").show();
+    //$("ol").show();
+    $("ol").slideDown("slow")
     console.log("list shown");
 }
 
