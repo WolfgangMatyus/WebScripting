@@ -3,7 +3,6 @@
 function loadMap() {	
 
     $.ajax({
-
         type: "GET",
         url: "traveldata.json",
         cache: false,
@@ -31,7 +30,7 @@ function loadMap() {
 
             //Slide Down#2 Animation mit 350ms
             $('.detail').hide();
-            $('#map').css("border", "#3px solid dashed");
+            $('#map').css("border", "30px outset black");
             $('#map').slideDown(350);
 
         },

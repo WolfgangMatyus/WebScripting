@@ -1,42 +1,56 @@
 [
     {
       "name": "Rathaus",
+      "img": "Rathaus.png",
       "detail": "Das Rathaus am Rathausplatz im 1. Bezirk, bis 1960 zur Unterscheidung vom Alten Rathaus Neues Rathaus genannt.",
       "coordx": "250",
 	    "coordy": "330"
     },
     {
       "name": "Uhrturm",
+      "img": "Uhrturm.png",
       "detail": "Der Uhrturm ist ein 28 Meter hoher Uhrturm auf dem Schloßberg.",
       "coordx": "100",
 	    "coordy": "100"
     },
     {
       "name": "Stadtpark",
+      "img": "Stadtpark.png",
       "detail": "Der Stadtpark ist ein 14 Hektar großer öffentlicher Park im 5. Bezirk.",
       "coordx": "520",
 	    "coordy": "460"
     },
     {
       "name": "Dom",
+      "img": "Dom.png",
       "detail": "Der Dom ist ein im neobyzantinischen Stil gehaltener monumentaler serbisch-orthodoxer Kirchenbau.",
       "coordx": "370",
 	    "coordy": "230"
     },
     {
       "name": "Zentralbahnhof",
+      "img": "Zentralbahnhof.png",
       "detail": "Der Zentralbahnhof ist ein Kopfbahnhof und einer der wichtigsten Bahnhöfe im Verkehrsnetz.",
       "coordx": "500",
-	  "coordy": "350"
+	    "coordy": "350"
     },
     {
       "name": "Marktviertel",
+      "img": "Marktviertel.png",
       "detail": "In Grundbüchern und Urkunden seit dem 14. Jahrhundert unter verschiedenen Flurbezeichungen",
       "coordx": "600",
 	    "coordy": "150"
 	  },
     {
+      "name": "Oper",
+      "img": "Oper.png",
+      "detail": "Das Operngebäude wurde im 18. Jahrhundert errichtet.",
+      "coordx": "80",
+	    "coordy": "280"
+    },
+    {
       "name": "Bibliothek",
+      "img": "Bibliothek.png",
       "detail": "Die Bibliothek befindet sich parallel zum Bahnhof.",
       "coordx": "450",
 	    "coordy": "70"
