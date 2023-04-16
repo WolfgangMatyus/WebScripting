@@ -13,7 +13,7 @@ function loadMap() {
             $('#map').hide();            
 
             $.each(response, function(i, jsonData) {
-                //console.log(jsonData["name"], ",", jsonData["detail"]);
+                console.log(jsonData["name"], ",", jsonData["detail"]);
 				
 				var posx = jsonData["coordx"];
 				var posy = jsonData["coordy"];
