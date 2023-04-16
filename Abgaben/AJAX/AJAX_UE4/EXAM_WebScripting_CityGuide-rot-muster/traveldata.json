@@ -1,0 +1,44 @@
+[
+    {
+      "name": "Rathaus",
+      "detail": "Das Rathaus am Rathausplatz im 1. Bezirk, bis 1960 zur Unterscheidung vom Alten Rathaus Neues Rathaus genannt.",
+      "coordx": "250",
+	  "coordy": "330"
+    },
+    {
+      "name": "Uhrturm",
+      "detail": "Der Uhrturm ist ein 28 Meter hoher Uhrturm auf dem Schloßberg.",
+      "coordx": "100",
+	  "coordy": "100"
+    },
+    {
+      "name": "Stadtpark",
+      "detail": "Der Stadtpark ist ein 14 Hektar großer öffentlicher Park im 5. Bezirk.",
+      "coordx": "520",
+	  "coordy": "460"
+    },
+    {
+      "name": "Dom",
+      "detail": "Der Dom ist ein im neobyzantinischen Stil gehaltener monumentaler serbisch-orthodoxer Kirchenbau.",
+      "coordx": "370",
+	  "coordy": "230"
+    },
+    {
+      "name": "Zentralbahnhof",
+      "detail": "Der Zentralbahnhof ist ein Kopfbahnhof und einer der wichtigsten Bahnhöfe im Verkehrsnetz.",
+      "coordx": "500",
+	  "coordy": "350"
+    },
+    {
+      "name": "Marktviertel",
+      "detail": "In Grundbüchern und Urkunden seit dem 14. Jahrhundert unter verschiedenen Flurbezeichungen",
+      "coordx": "600",
+	  "coordy": "150"
+	},
+    {
+      "name": "Bibliothek",
+      "detail": "Die Bibliothek befindet sich parallel zum Bahnhof.",
+      "coordx": "450",
+	  "coordy": "70"
+    }
+]

@@ -1,0 +1,6 @@
+/*ToDo*/
+
+function loadMap() {	
+
+}
+
