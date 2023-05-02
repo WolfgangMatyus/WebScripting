@@ -105,6 +105,7 @@ $(document).ready(function() {
     productLabel.click(function () {
         if ("Products" !== productLabel.text().trim().toString()) {
             loadProducts();
+            
             $("#selection").fadeOut(250, function () {
                 $("#output").fadeIn(250);
                 productLabel.text("Products");

@@ -1,0 +1,90 @@
+[
+    {
+        "img": "Pic/Olaf.png",
+        "name": "Olaf",
+        "race": "Human",
+        "class": "Paladin",
+        "side": "light",
+        "damage": 3,
+        "heal": 1,
+        "armor": 2,
+        "health": 10
+    },
+    {
+        "img": "Pic/Elun.png",
+        "name": "Elun",
+        "race": "Elf",
+        "class": "Priest",
+        "side": "light",
+        "damage": 2,
+        "heal": 3,
+        "armor": 0,
+        "health": 6
+    },
+    {
+        "img": "Pic/Gloin.png",
+        "name": "Gloin",
+        "race": "Dwarf",
+        "class": "Berserk",
+        "side": "light",
+        "damage": 4,
+        "heal": 0,
+        "armor": 3,
+        "health": 16
+    },
+    {
+        "img": "Pic/Flix.png",
+        "name": "Flix",
+        "race": "Gnome",
+        "class": "Hunter",
+        "side": "light",
+        "damage": 2,
+        "heal": 0,
+        "armor": 1,
+        "health": 8
+    },
+    {
+        "img": "Pic/Grunt.png",
+        "name": "Grunt",
+        "race": "Orc",
+        "class": "Berserk",
+        "side": "dark",
+        "damage": 3,
+        "heal": 0,
+        "armor": 2,
+        "health": 10
+    },
+    {
+        "img": "Pic/Sleth.png",
+        "name": "Sleth",
+        "race": "Goblin",
+        "class": "Assassin",
+        "side": "dark",
+        "damage": 2,
+        "heal": 0,
+        "armor": 1,
+        "health": 7
+    },
+    {
+        "img": "Pic/Lupus.png",
+        "name": "Lupus",
+        "race": "Warg",
+        "class": "Beast",
+        "side": "dark",
+        "damage": 3,
+        "heal": 0,
+        "armor": 0,
+        "health": 8
+    },
+    {
+        "img": "Pic/Garoth.png",
+        "name": "Garoth",
+        "race": "Troll",
+        "class": "Beast",
+        "side": "dark",
+        "damage": 5,
+        "heal": 0,
+        "armor": 2,
+        "health": 15
+    }
+]
