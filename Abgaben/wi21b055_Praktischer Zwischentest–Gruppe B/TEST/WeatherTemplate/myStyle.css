@@ -1,0 +1,26 @@
+#mainContainer{
+	display:flex;
+	justify-content:center;
+}
+
+#europe{
+	position:relative;	
+	-webkit-filter: hue-rotate(290deg);
+    filter: hue-rotate(290deg);
+}
+
+.europeMap{
+	width: 750px;
+}
+
+.weather{
+	position:absolute;
+	z-index:5;
+	width: 10%;
+	-webkit-filter: hue-rotate(60deg);
+    filter: hue-rotate(60deg);
+}
+
+.alert-trim {
+	display: inline-block;
+  }

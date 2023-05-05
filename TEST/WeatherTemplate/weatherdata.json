@@ -1,0 +1,82 @@
+[
+    {
+      "weather": "Sunny",
+	  "degrees": "25C°",      
+      "position": {		  
+		  "x": "110",
+		  "y": "260"
+		}
+    },
+    {
+      "weather": "Sunny",
+	  "degrees": "29C°",  
+	  "position": {
+		  "x": "240",
+		  "y": "180"
+	  }
+    },
+    {
+      "weather": "Rainy",
+	  "degrees": "9C°",      
+	  "position": {
+		  "x": "70",
+		  "y": "30"
+	  }
+    },
+    {
+      "weather": "Cloudy",
+	  "degrees": "20C°",       
+	  "position": {
+		  "x": "50",
+		  "y": "450"
+	  }
+    },
+    {
+      "weather": "Cloudy",
+	  "degrees": "14C°",       
+	  "position": {		
+		  "x": "280",
+		  "y": "400"
+	  }
+    },
+    {
+      "weather": "Rainy",
+	  "degrees": "14C°",  
+	  "position": {
+		  "x": "200",
+		  "y": "380"
+	  }
+	},
+    {
+      "weather": "Thunderstorm",
+	  "degrees": "18C°",  
+	  "position": {		  
+		  "x": "550",
+		  "y": "120"
+	  }
+    },
+    {
+      "weather": "Cloudy",
+	  "degrees": "17C°",       
+	  "position": {		
+		  "x": "380",
+		  "y": "200"
+	  }
+    },
+    {
+      "weather": "Rainy",
+	  "degrees": "12C°",  
+	  "position": {
+		  "x": "450",
+		  "y": "320"
+	  }
+	},
+    {
+      "weather": "Thunderstorm",
+	  "degrees": "23C°",  
+	  "position": {		  
+		  "x": "500",
+		  "y": "220"
+	  }
+    }
+]
