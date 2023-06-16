@@ -1,0 +1,12 @@
+body {
+
+}
+
+.card{
+    float: left
+}
+
+.card2{
+    float: left;
+    clear: left
+}
