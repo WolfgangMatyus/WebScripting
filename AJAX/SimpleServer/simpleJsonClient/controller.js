@@ -9,6 +9,7 @@ $(document).ready(function () {
 
 function loaddata(searchterm) {
 
+    console.log('queryPersonByName');
     $.ajax({
         type: "GET",
         url: "../serviceHandler.php",
@@ -21,6 +22,32 @@ function loaddata(searchterm) {
             $("#searchResult").show(1000).delay(1000).hide(1000);
         }
     });
-
     
+    console.log('queryPersonById');
+    $.ajax({
+        type: "GET",
+        url: "../serviceHandler.php",
+        cache: false,
+        data: {method: "queryPersonById", param: searchterm},
+        dataType: "json",
+        success: function (response) {
+            
+            $("#noOfentries").val(response.length);
+            $("#searchResult").show(1000).delay(1000).hide(1000);
+        }
+    });
+
+    console.log('queryShowAll');
+    $.ajax({
+        type: "GET",
+        url: "../serviceHandler.php",
+        cache: false,
+        data: {method: "queryShowAll", param: searchterm},
+        dataType: "json",
+        success: function (response) {
+            
+            $("#noOfentries").val(response.length);
+            $("#searchResult").show(1000).delay(1000).hide(1000);
+        }
+    });
 }
