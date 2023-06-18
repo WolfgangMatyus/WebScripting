@@ -25,19 +25,21 @@
         <!--productlistcontainer
         Cards wie bei Memory für jedes Product mit
         Json {products:[{id:#, name:#, preis:#, img_path:#, kategorie:{Brettspiel, Kartenspiel, Zubehör}, bewertung:{1-5}}]}-->
-        <container class="container" id="productListContainer">
+        <container class="container list-container" id="productListContainer">
 
         </container>
         <!--warenkorbcontainer **RECHTS
         Produkte können ohne Page-Reload „in den Warenkorb“ gelegt werden
         Anzahl der Produkte wird neben Warenkorbsymbol angezeigt = im Layout zur Navbar-->
-        <container class="container" id="homeCart">
+        <container class="container list-container droppable" id="homeCart" ondrop="drop(event)" ondragover="allowDrop(event)">
 
         </container>
 
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript" src="../../public/js/home.js"></script>
 </html>
 

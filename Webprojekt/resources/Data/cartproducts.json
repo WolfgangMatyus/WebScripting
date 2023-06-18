@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "name": "Pokerkoffer",
+        "price_single": 49.90,
+        "price_total": 99.80,
+        "quantity": 2
+    },
+    {
+        "id": 3,
+        "name": "Würfel",
+        "price_single": 9.90,
+        "price_total": 9.90,
+        "quantity": 1
+    },
+    {
+        "id": 2,
+        "name": "Mensch",
+        "price_single": 19.90,
+        "price_total": 19.90,
+        "quantity": 1
+    },
+    {
+        "id": 4,
+        "name": "Bridge",
+        "price_single": 29.90,
+        "price_total": 89.70,
+        "quantity": 3
+    },
+    {
+        "id": 6,
+        "name": "Schach",
+        "price_single": 59.90,
+        "price_total": 59.90,
+        "quantity": 1
+    },
+    {
+        "cartSum": 500
+    }
+]
