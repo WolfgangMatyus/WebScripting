@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
-    console.log("do kumma hi");
+//-- SHOPLIST --//   
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: "../JasonTest/products.json",
+        url: "../../Data/products.json",
 
         success: function(json){
             console.log(json)
@@ -36,26 +36,34 @@ function loadProducts(data) {
             + '</div>'
 
         let cardImg = '<div class="cardimg col-md-6">'
-            + '<img src=../imgTest/'+ data.img_path +' class="img-fluid rounded-start" alt="Product Picture">'
+            + '<img src=../../public/img/'+ data.img_path +' class="img-fluid rounded-start" alt="Product Picture">'
             + '</div>'
         
-        if ((i+1) % 4 === 0) {
+        
         $("#productList").append(
-            '<div class="card2 ">'
+            '<div class="card" id="card'+ i +'">'
             + '<div class="row g-0">'
             + cardImg
             + cardBody
             + '</div>'
             + '</div>');
 
-                } else {
-                    $("#productList").append(
-                        '<div class="card ">'
-                        + '<div class="row g-0">'
-                        + cardImg
-                        + cardBody
-                        + '</div>'
-                        + '</div>');
-                }
+            if ((i+1) % 4 === 0) {
+                $("#card"+ i)
+                .css("float", "left");
+                $("#card"+ i)
+                .css("clear", "left");
+            }
+            else{
+                $("#card"+ i)
+                .css("float", "left");
+            }
     });  
 }
+
+//-- HOMESHOPPING_CARD --//  
+
+
+
+ //console.log("do kumma hi");
+

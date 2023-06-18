@@ -1,12 +1,4 @@
 body {
-
+    background-color: skyblue;
 }
 
-.card{
-    float: left
-}
-
-.card2{
-    float: left;
-    clear: left
-}

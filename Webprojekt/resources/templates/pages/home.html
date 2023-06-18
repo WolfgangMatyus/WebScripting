@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../../public/css/global.css">
+    <link rel="stylesheet" href="../../public/css/home.css">
     <!--<script type="text/javascript" src="js/home.js"></script>-->
 </head>
 <body>
@@ -13,31 +14,30 @@
         <!--searchfiltercontainer
         Produkte können gelistet und je Kategorie angezeigt werden:
             Name, Bild, Preis und Bewertung -->
-        <container id="searchbar">
+        <container class="container" id="searchbar">
 
         </container>
         <!--kategoriekontainer
          sort -->
-        <container id="categoryFilter">
+        <container class="container" id="categoryFilter">
 
         </container>
         <!--productlistcontainer
         Cards wie bei Memory für jedes Product mit
         Json {products:[{id:#, name:#, preis:#, img_path:#, kategorie:{Brettspiel, Kartenspiel, Zubehör}, bewertung:{1-5}}]}-->
-        <container id="productListContainer">
+        <container class="container" id="productListContainer">
 
         </container>
         <!--warenkorbcontainer **RECHTS
         Produkte können ohne Page-Reload „in den Warenkorb“ gelegt werden
         Anzahl der Produkte wird neben Warenkorbsymbol angezeigt = im Layout zur Navbar-->
-        <container id="homeCart">
+        <container class="container" id="homeCart">
 
         </container>
-    </section>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script type="text/javascript" src="../js/home.js"></script>
+
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/js/home.js"></script>
 </html>
 

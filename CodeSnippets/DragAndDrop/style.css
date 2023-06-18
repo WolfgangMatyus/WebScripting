@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 300px;
+  }
+  
+  .form-container {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .card {
+    padding: 10px;
+    background-color: #e0e0e0;
+    cursor: move;
+  }
+  
+  .list-container {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 100px;
+  }
+  
+  .droppable {
+    list-style-type: none;
+  }
+  
+  .dragging {
+    opacity: 0.5;
+  }
