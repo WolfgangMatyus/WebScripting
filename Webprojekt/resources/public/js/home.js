@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-//-- SHOPLIST --//   
+//-- Initialize SHOPLIST --//   
     $.ajax({
         method: "GET",
         dataType: "json",
@@ -19,46 +19,43 @@ $(document).ready(function(){
 
 function loadProducts(data) {
 
-    let productCards = '<ul id="productList"></ul>'
+    let productCardsList = '<div id="productList" class="row row-cols-1 row-cols-md-3 g-4">'
+                        +  '</div>'
 
     $("#productListContainer")
         .empty()
-        .append(productCards);
+        .append(productCardsList);
 
     $.each(data, function (i, data) {
 
         let cardBody = '<div class="col">'
-            + '<div class="card-body" id="' + data.id + '">'
-            + '<h5 class="productName">' + data.name + '</h5>'
-            + '<p class="productPrice">Price: ' + data.price + '</p>'
-            + '<p class="productCategory">Category: ' + data.category + '</p>'
-            + '<p class="productRating">Rating: ' + data.rating + '</p>'
-            + '</div>'
-            + '</div>'
+                    +  '<div class="card-body" id="' + data.id + '">'
+                    
+                    +  '<p class="productPrice">Price: ' + data.price + '</p>'
+                    +  '<p class="productCategory">Category: ' + data.category + '</p>'
+                    +  '<p class="productRating">Rating: ' + data.rating + '</p>'
+                    +  '</div>'
+                    +  '<div class="card-footer">'
+                    +  '<small class="text-body-secondary">'
+                    +  '<a href="#" class="btn btn-primary">Add to Cart</a>'
+                    +  '</small>'
+                    +  '</div>'
 
-        let cardImg = '<div class="cardimg col-md-6">'
-            + '<img src=../../public/img/'+ data.img_path +' class="img-fluid rounded-start" alt="Product Picture">'
-            + '</div>'
-        
-        
-        $("#productList").append(
-            '<div class="card" id="card'+ i +'" draggable="true" ondragstart="drag(event)">'
-            + '<div class="row g-0">'
-            + cardImg
-            + cardBody
-            + '</div>'
-            + '</div>');
 
-            if ((i+1) % 4 === 0) {
-                $("#card"+ i)
-                .css("float", "left");
-                $("#card"+ i)
-                .css("clear", "left");
-            }
-            else{
-                $("#card"+ i)
-                .css("float", "left");
-            }
+        let cardImg = '<div class="cardimg h-100">' // cardimg col-md-6
+                    + '<img src=../../public/img/'+ data.img_path +' class="img-fluid" alt="Product Picture">'
+                    + '</div>'
+        
+        $("#productList").append( '<div class="col">'
+                                + '<div class="card h-100" id="card'+ i +'" draggable="true" ondragstart="drag(event)">'
+                                + '<div class="card-header">'
+                                + '<h5 class="productName">' + data.name + '</h5>'
+                                + '</div>'
+                                + cardImg
+                                + cardBody
+                                + '</div>'
+                                + '</div>'            
+            )
     });  
 }
 
@@ -68,15 +65,33 @@ function loadProducts(data) {
 
 //-- HOMESHOPPING_CARD --//  
 function loadHomeCart() {
-    let homeCartList = '<ul class="homeCartList" id="homeCartList"></ul>'
-    let homeCartSum = '<div class="rowsum"><div class="col" id="homeCartSum">SUMME:' 
+
+    let homeCartList = '<div class="homeCartList droppable" id="homeCartList" ondrop="drop(event)" ondragover="allowDrop(event)">'
+                    +  '<div class="Placeholder" id="homeCartListPlaceholder">'
+                    +  'You can drag a Product and drop it here to add it to the Shopping Cart'
+                    +  '</div>'
+                    +  '</div>'
+    let homeCartSum = '<div class="row"><div class="col" id="homeCartSum">SUMME:' 
                     + '</div><div class="col" id="SumValue">0,00<div>'
 
-    $("#homeCart")
-        .append(homeCartList)
+    let homeCart = '<div class="col">'
+    +  '<div class="card droppable h-100" id="homeCart" "></div>'
+    +  '<div class="card-header">'
+    +  '<h5 class="productName">Shopping Cart</h5>'
+    +  '</div>'
+    +  homeCartList
+    +  homeCartSum
+    +  '</div>'
+    +  '</div>'
+    
+    $("#homeCartContainer")
+    .append(homeCart)
 
-    $("#homeCart")
-    .append(homeCartSum)
+    $("#homeCartListPlaceholder").css({
+        "border-style": "dotted",
+        "border-radius": "15px",
+        "padding": "1px"
+      });
 
 };
 
@@ -92,14 +107,23 @@ function drag(event){
 function drop(event){
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
-    var draggedElement = document.querySelector("#0"); // "#" + data
+    var draggedElement = document.querySelector("#" + data);
 
     sendCartProduct(data);
 }
 //-- write ShoppingCart to CartProductsJson
 function sendCartProduct(data){
     
-    var cartproductid = {
+    let response = data;
+    getCartFromBackend(response);
+
+    // WORKAROUND LOAD TEST cartproducts.json
+    // Every drag and drop sends a POST with CartProductID to REST-API 
+    // wich adds the id to a cartlist and returns the current 
+    // Shopping Cart Items with values in response like in 
+    // Data/cartproducts.json
+
+    /*var cartproductid = {
         id: data,
     };
     
@@ -107,23 +131,23 @@ function sendCartProduct(data){
         method: "POST",
         url: "/api/v1/auth/cart",
         contentType: "application/json",
-        data: JSON.stringify(data),
+        data: JSON.stringify(cartproductid),
 
         success: function(response){
-            //console.log(response)
+            console.log(response)
             loadCart(response);
         },
         error: function(response){
+            console.log(response)
             console.error("An ERROR occured!")
         }
     })
+    */
 }
 
+function getCartFromBackend(response){
 
-function loadCart(response){
-
-
-    //WORKAROUND LOAD TEST cartproducts.json
+    // WORKAROUND LOAD TEST cartproducts.json
     $.ajax({
         method: "GET",
         dataType: "json",
@@ -131,39 +155,32 @@ function loadCart(response){
 
         success: function(json){
             console.log(json)
-            
+            loadCartOnFrontend(json)
         },
         error: function(json){
             console.error("An ERROR occured!")
         }
     })
-
     // END WORKAROUND LOAD TEST cartproducts.json
-
-    $.each(data, function (i, data) {
-    // Create a new list item element
-    var listItem = document.createElement("li");
-    listItem.id = data;
-    
-    let cardBody = '<div class="row">'
-    + '<div class="card-body col" id="' + data.id + '">'
-    + '<p class="productName col">' + data.name + '</p>'
-    + '<p class="productPrice col">Price: ' + data.quantity + '</p>'
-    + '<p class="productPrice col">Price: ' + data.price_single + '</p>'
-    + '<p class="productPrice col">Price: ' + data.price_total + '</p>'
-    + '</div>'
-    + '</div>'
-
-    
-    listItem.textContent = cardBody;
-
-    
-
-    // Append the new list item to the target element
-    $("#homeCartList").append(listItem);
-    })
 }
     
+function loadCartOnFrontend(data){
+        $.each(data, function (i, data) {
+            
+            let cardBody = '<div class="row">'
+            + '<div class="card-body" id="' + data.id + '">'
+            + '<div class="productName col-3">' + data.name + '</div>'
+            + '<div class="productQuantity col-3">Quantity: ' + data.quantity + '</div>'
+            + '<div class="productPriceSingle col-3">Price Single: ' + data.price_single + '</div>'
+            + '<div class="productPriceTotal col-3">Price Total: ' + data.price_total + '</div>'
+            + '</div>'
+            + '</div>'
+        
+            // Append the new list item to the target element
+            $("#homeCartList").append(cardBody);
+            })
+    }
+
 //-- HomeCardSum-Calculator --/
 function calculateHomeCardSum(){
     

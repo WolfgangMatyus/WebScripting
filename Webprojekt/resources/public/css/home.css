@@ -2,15 +2,5 @@ body {
     background-color: skyblue;
 }
 
-.list-container {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    min-height: 100px;
-    min-height: 200px;
-  }
 
 
-  .rowsum{
-    display: flex;
-}
