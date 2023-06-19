@@ -1,0 +1,32 @@
+[
+    { 
+        "name": "Product 1", 
+        "category": "electronics", 
+        "price": 20 
+    },
+    { 
+        "name": "Product 2", 
+        "category": "clothing", 
+        "price": 30 
+    },
+    { 
+        "name": "Product 3", 
+        "category": "electronics", 
+        "price": 40 
+    },
+    { 
+        "name": "Product 4", 
+        "category": "books", 
+        "price": 15 
+    },
+    { 
+        "name": "Product 5", 
+        "category": "clothing", 
+        "price": 60 
+    },
+    { 
+        "name": "Product 6", 
+        "category": "electronics", 
+        "price": 50 
+    }
+]    
