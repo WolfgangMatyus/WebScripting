@@ -146,10 +146,10 @@ function loadHomeCart() {
                     + '</div>'
     let homeCartHeader = '<div class="header" id="homeCartHeader">'
                         +'<div class="row">'
-                        +'<div class="col"><h5>Product Name</5></div>'
-                        +'<div class="col"><h5>Quantity</5></div>'
-                        +'<div class="col"><h5>Price Single</5></div>'
-                        +'<div class="col"><h5>Total</5></div>'
+                        +'<div class="col center"><h5>Product Name</5></div>'
+                        +'<div class="col center"><h5>Quantity</5></div>'
+                        +'<div class="col center"><h5>Price Single</5></div>'
+                        +'<div class="col center"><h5>Total</5></div>'
                         +'</div>'
                         +'</div>'
 
@@ -173,8 +173,8 @@ function loadHomeCart() {
     $("#homeCartListPlaceholder").css({
         "border-style": "dotted",
         "border-radius": "15px",
-        "padding": "40px 20px",
-        "margin": "2px"
+        "padding": "40px",
+        "margin": "20px 30px 20px 0px"
       });
 };
 
@@ -256,13 +256,18 @@ function loadCartOnFrontend(data){
             
         let cardBody = '<li class="listItem" id="' + data.id + '">'
         + '<span class="listItemValue" id="productName">' + data.name + '</span>'
-        + '<span class="listItemValue" id="productQuantity">' + data.quantity + '</span>'
-        + '<span class="listItemValue" id="productPriceSingle"> ' + data.price_single + '</span>'
-        + '<span class="listItemValue" id="productPriceTotal">'+ data.price_total + '</span>'
+        + '<span class="listItemValue Number" id="productQuantity">' + data.quantity + '</span>'
+        + '<span class="listItemValue Number" id="productPriceSingle"> ' + data.price_single + '</span>'
+        + '<span class="listItemValue Number" id="productPriceTotal">'+ data.price_total + '</span>'
         + '</li>'
     
+       
     $("#homeCartList").append(cardBody);
     })
+    $(".Number")
+    .css({"text-align": "right"
+})
+
 }
 
 
