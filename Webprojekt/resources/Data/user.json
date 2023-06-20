@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "email": "t@test.at",
+        "firstname": "R2",
+        "lastname": "Grod",
+        "password": "$2a$10$qbykEXhV3yQzZ7m2r4aFdO6uLojN.i06.dl.QMPxnxrxrAEFucdWe",
+        "role": "ROLE_USER"
+    },
+    {
+        "id": 2,
+        "email": "rob@test.at",
+        "firstname": "Rob",
+        "lastname": "Spitz",
+        "password": "$2a$10$TDHubmli0uAh/ObBxygOQ.DfRo2Ae36ohWb9mX.P0Gfjbz9QOHNwq",
+        "role": "ROLE_USER"
+    },
+    {
+        "id": 3,
+        "email": "wi21b055@technikum-wien.at",
+        "firstname": "Wolf",
+        "lastname": "Mat",
+        "password": "$2a$10$38rr3ldh/TPWLrXBQP/dx.OPflrF3oZnGd7IO/bJy3hy/W0BWdBJi",
+        "role": "ROLE_USER"
+    }
+]
