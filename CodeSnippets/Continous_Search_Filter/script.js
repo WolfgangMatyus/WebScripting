@@ -1,3 +1,12 @@
+const products = [
+    { name: "Pokerkoffer", category: "electronics", price: 20 },
+    { name: "Mensch", category: "clothing", price: 30 },
+    { name: "Würfel", category: "electronics", price: 40 },
+    { name: "Bridge", category: "books", price: 15 },
+    { name: "Dame", category: "clothing", price: 60 },
+    { name: "Schach", category: "electronics", price: 50 },
+  ];
+
 // Function to filter products based on search input and filters
 function filterProducts() {
     const searchKeyword = $("#searchInput").val().toLowerCase();

@@ -33,8 +33,5 @@
         "price_single": 59.90,
         "price_total": 59.90,
         "quantity": 1
-    },
-    {
-        "cartSum": 500
     }
 ]

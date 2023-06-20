@@ -8,6 +8,7 @@ $(document).ready(function(){
 
         success: function(json){
             console.log(json)
+            InitializeSearchFilter();
             loadProducts(json);
             loadHomeCart();
         },
@@ -60,27 +61,102 @@ function loadProducts(data) {
 }
 
 //-- Searchfilter -- //
+function InitializeSearchFilter(){
+    $("#categorySearchFilter")
+        .append('<div id="filterContainer">'
+                +'<select id="categoryFilter">'
+                +'<option value="">All Categories</option>'
+                +'<option value="electronics">Electronics</option>'
+                +'<option value="clothing">Clothing</option>'
+                +'<option value="books">Books</option>'
+                +'</select>'
+                +'<select id="priceFilter">'
+                +'<option value="">All Prices</option>'
+                +'<option value="under25">Under $25</option>'
+                +'<option value="25to50">$25 - $50</option>'
+                +'<option value="over50">Over $50</option>'
+                +'</select>'
+                +'<input type="text" id="searchInput" placeholder="Search products">'
+                +'</div>'
+                );
+}
+
+
+
+function filterProducts() {
+    const searchKeyword = $("#searchInput").val().toLowerCase();
+    const categoryFilter = $("#categoryFilter").val();
+    const priceFilter = $("#priceFilter").val();
+  
+    const filteredProducts = products.filter(product => {
+      const nameMatch = product.name.toLowerCase().includes(searchKeyword);
+      const categoryMatch = categoryFilter === "" || product.category === categoryFilter;
+      const priceMatch =
+        priceFilter === "" ||
+        (priceFilter === "under25" && product.price < 25) ||
+        (priceFilter === "25to50" && product.price >= 25 && product.price <= 50) ||
+        (priceFilter === "over50" && product.price > 50);
+  
+      return nameMatch && categoryMatch && priceMatch;
+    });
+  
+    displayProducts(filteredProducts);
+  }
+  
+  // Function to display the filtered products
+  function displayProducts(products) {
+    const productList = $("#productList");
+    productList.empty();
+  
+    if (products.length === 0) {
+      productList.append("<p>No products found.</p>");
+    } else {
+      products.forEach(product => {
+        productList.append("<p>" + product.name + "</p>");
+      });
+    }
+  }
+  
+  // Event listeners for search input and filter changes
+  $("#searchInput, #categoryFilter, #priceFilter").on("input change", filterProducts);
+  
+  // Initial display of all products
+  displayProducts(products);
 
 
 
 //-- HOMESHOPPING_CARD --//  
 function loadHomeCart() {
 
-    let homeCartList = '<div class="homeCartList droppable" id="homeCartList" ondrop="drop(event)" ondragover="allowDrop(event)">'
+    let homeCartList = '<ul class="homeCartList" id="homeCartList">'
                     +  '<div class="Placeholder" id="homeCartListPlaceholder">'
-                    +  'You can drag a Product and drop it here to add it to the Shopping Cart'
+                    +  'You can drag a Product and drop it here to add it to the Shopping Cart!'
                     +  '</div>'
-                    +  '</div>'
-    let homeCartSum = '<div class="row"><div class="col" id="homeCartSum">SUMME:' 
-                    + '</div><div class="col" id="SumValue">0,00<div>'
+                    +  '</ul>'
+    let homeCartSum = '<div class="row">'
+                    + '<div class="col" id="cartSumLable">SUMME:</div>'
+                    + '<div class="col" id="cartSumValue">0,00</div>'
+                    + '</div>'
+    let homeCartHeader = '<div class="header" id="homeCartHeader">'
+                        +'<div class="row">'
+                        +'<div class="col"><h5>Product Name</5></div>'
+                        +'<div class="col"><h5>Quantity</5></div>'
+                        +'<div class="col"><h5>Price Single</5></div>'
+                        +'<div class="col"><h5>Total</5></div>'
+                        +'</div>'
+                        +'</div>'
 
     let homeCart = '<div class="col">'
-    +  '<div class="card droppable h-100" id="homeCart" "></div>'
+    +  '<div class="card droppable h-100" ondrop="drop(event)" ondragover="allowDrop(event)" id="homeCart">'
     +  '<div class="card-header">'
-    +  '<h5 class="productName">Shopping Cart</h5>'
+    +  '<h4 class="cartName">Shopping Cart</h4>'
     +  '</div>'
+    +  homeCartHeader
     +  homeCartList
+    +  '<div class="card-footer">'
+    +  '<small class="text-body-secondary">'
     +  homeCartSum
+    +  '</small>'
     +  '</div>'
     +  '</div>'
     
@@ -90,9 +166,9 @@ function loadHomeCart() {
     $("#homeCartListPlaceholder").css({
         "border-style": "dotted",
         "border-radius": "15px",
-        "padding": "1px"
+        "padding": "40px 20px",
+        "margin": "2px"
       });
-
 };
 
 //-- DragAndDrop --//
@@ -107,6 +183,7 @@ function drag(event){
 function drop(event){
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
+    console.log(data)
     var draggedElement = document.querySelector("#" + data);
 
     sendCartProduct(data);
@@ -165,27 +242,22 @@ function getCartFromBackend(response){
 }
     
 function loadCartOnFrontend(data){
-        $.each(data, function (i, data) {
+
+    $(".Placeholder").remove();
+
+    $.each(data, function (i, data) {
             
-            let cardBody = '<div class="row">'
-            + '<div class="card-body" id="' + data.id + '">'
-            + '<div class="productName col-3">' + data.name + '</div>'
-            + '<div class="productQuantity col-3">Quantity: ' + data.quantity + '</div>'
-            + '<div class="productPriceSingle col-3">Price Single: ' + data.price_single + '</div>'
-            + '<div class="productPriceTotal col-3">Price Total: ' + data.price_total + '</div>'
-            + '</div>'
-            + '</div>'
-        
-            // Append the new list item to the target element
-            $("#homeCartList").append(cardBody);
-            })
-    }
-
-//-- HomeCardSum-Calculator --/
-function calculateHomeCardSum(){
+        let cardBody = '<li class="listItem" id="' + data.id + '">'
+        + '<span class="listItemValue" id="productName">' + data.name + '</span>'
+        + '<span class="listItemValue" id="productQuantity">' + data.quantity + '</span>'
+        + '<span class="listItemValue" id="productPriceSingle"> ' + data.price_single + '</span>'
+        + '<span class="listItemValue" id="productPriceTotal">'+ data.price_total + '</span>'
+        + '</li>'
     
-
+    $("#homeCartList").append(cardBody);
+    })
 }
+
 
  //console.log("do kumma hi");
 
