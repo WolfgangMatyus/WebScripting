@@ -1,22 +1,95 @@
-$(document).ready(function(){
+//--- Variables---//
 
-//-- Initialize SHOPLIST --//   
+
+//--- Code --//
+$(document).ready(function(){
+//-- Initialize SHOPLIST --//
+    InitializeSearchFilter();
+    getProducts(function(products){
+        console.log(products);
+        filterProducts(products)
+    });
+    loadHomeCart();
+});
+
+function getProducts(callback){
     $.ajax({
         method: "GET",
         dataType: "json",
         url: "../../Data/products.json",
-
         success: function(json){
-            console.log(json)
-            InitializeSearchFilter();
-            loadProducts(json);
-            loadHomeCart();
+            console.log(json);
+            callback(json);
         },
-        error: function(json){
+        error: function(){
             console.error("An ERROR occured!")
         }
     })
-});
+};
+
+//-- SearchFilter Visuals -- //
+function InitializeSearchFilter(){
+    $("#categorySearchFilter")
+        .append('<div id="filterContainer">'
+                +'<select id="categoryFilter">'
+                +'<option value="">All Categories</option>'
+                +'<option value="Cardgame">Cardgame</option>'
+                +'<option value="Boardgame">Boardgame</option>'
+                +'<option value="Accesories">Accesories</option>'
+                +'<option value="rating">Rating</option>'
+                +'</select>'
+                +'<select id="priceFilter">'
+                +'<option value="">All Prices</option>'
+                +'<option value="under25"> < €25</option>'
+                +'<option value="25to50">€25 - €50</option>'
+                +'<option value="over50"> > €50</option>'
+                +'</select>'
+                +'<input type="text" id="searchInput" placeholder="Search products">'
+                +'</div>'
+                );
+}
+//-- SearchFilter Functionality-- //
+function filterProducts(products) {
+    //console.log(products);
+    //console.log("filterProducts:");
+    //for (var i = 0; i < products.length; i++) {
+    //console.log("Product: ", products[i].name , products[i].category, products[i].price);
+    //}
+    const searchKeyword = $("#searchInput").val().toLowerCase();
+    const categoryFilter = $("#categoryFilter").val();
+    const priceFilter = $("#priceFilter").val();
+  
+    const filteredProducts = products.filter(product => {
+      const nameMatch = product.name.toLowerCase().includes(searchKeyword);
+      const categoryMatch = categoryFilter === "" || product.category === categoryFilter;
+      const priceMatch =
+        priceFilter === "" ||
+        (priceFilter === "under25" && product.price < 25) ||
+        (priceFilter === "25to50" && product.price >= 25 && product.price <= 50) ||
+        (priceFilter === "over50" && product.price > 50);
+  
+      return nameMatch && categoryMatch && priceMatch;
+    });
+  
+    loadProducts(filteredProducts);
+  }
+  
+  // Function to display the filtered products
+  function loadProducts(products) {
+    const productList = $("#productList");
+    productList.empty();
+  
+    if (products.length === 0) {
+      productList.append("<p>No products found.</p>");
+    } else {
+      products.forEach(product => {
+        productList.append("<p>" + product.name + "</p>");
+      });
+    }
+  }
+  
+  // Event listeners for search input and filter changes
+  $("#searchInput, #categoryFilter, #priceFilter").on("input change", filterProducts);
 
 function loadProducts(data) {
 
@@ -42,8 +115,7 @@ function loadProducts(data) {
                     +  '</small>'
                     +  '</div>'
 
-
-        let cardImg = '<div class="cardimg h-100">' // cardimg col-md-6
+        let cardImg = '<div class="cardimg h-100">'
                     + '<img src=../../public/img/'+ data.img_path +' class="img-fluid" alt="Product Picture">'
                     + '</div>'
         
@@ -59,71 +131,6 @@ function loadProducts(data) {
             )
     });  
 }
-
-//-- Searchfilter -- //
-function InitializeSearchFilter(){
-    $("#categorySearchFilter")
-        .append('<div id="filterContainer">'
-                +'<select id="categoryFilter">'
-                +'<option value="">All Categories</option>'
-                +'<option value="electronics">Electronics</option>'
-                +'<option value="clothing">Clothing</option>'
-                +'<option value="books">Books</option>'
-                +'</select>'
-                +'<select id="priceFilter">'
-                +'<option value="">All Prices</option>'
-                +'<option value="under25">Under $25</option>'
-                +'<option value="25to50">$25 - $50</option>'
-                +'<option value="over50">Over $50</option>'
-                +'</select>'
-                +'<input type="text" id="searchInput" placeholder="Search products">'
-                +'</div>'
-                );
-}
-
-
-
-function filterProducts() {
-    const searchKeyword = $("#searchInput").val().toLowerCase();
-    const categoryFilter = $("#categoryFilter").val();
-    const priceFilter = $("#priceFilter").val();
-  
-    const filteredProducts = products.filter(product => {
-      const nameMatch = product.name.toLowerCase().includes(searchKeyword);
-      const categoryMatch = categoryFilter === "" || product.category === categoryFilter;
-      const priceMatch =
-        priceFilter === "" ||
-        (priceFilter === "under25" && product.price < 25) ||
-        (priceFilter === "25to50" && product.price >= 25 && product.price <= 50) ||
-        (priceFilter === "over50" && product.price > 50);
-  
-      return nameMatch && categoryMatch && priceMatch;
-    });
-  
-    displayProducts(filteredProducts);
-  }
-  
-  // Function to display the filtered products
-  function displayProducts(products) {
-    const productList = $("#productList");
-    productList.empty();
-  
-    if (products.length === 0) {
-      productList.append("<p>No products found.</p>");
-    } else {
-      products.forEach(product => {
-        productList.append("<p>" + product.name + "</p>");
-      });
-    }
-  }
-  
-  // Event listeners for search input and filter changes
-  $("#searchInput, #categoryFilter, #priceFilter").on("input change", filterProducts);
-  
-  // Initial display of all products
-  displayProducts(products);
-
-
 
 //-- HOMESHOPPING_CARD --//  
 function loadHomeCart() {
@@ -259,5 +266,5 @@ function loadCartOnFrontend(data){
 }
 
 
- //console.log("do kumma hi");
+ 
 

@@ -12,7 +12,8 @@ function filterProducts() {
     const searchKeyword = $("#searchInput").val().toLowerCase();
     const categoryFilter = $("#categoryFilter").val();
     const priceFilter = $("#priceFilter").val();
-  
+
+    console.log(products);
     const filteredProducts = products.filter(product => {
       const nameMatch = product.name.toLowerCase().includes(searchKeyword);
       const categoryMatch = categoryFilter === "" || product.category === categoryFilter;
