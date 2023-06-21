@@ -1,6 +1,5 @@
 //--- Variables---//
 
-
 //--- Code --//
 $(document).ready(function(){
 //-- Initialize SHOPLIST --//
