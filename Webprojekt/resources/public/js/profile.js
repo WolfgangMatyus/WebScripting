@@ -2,6 +2,8 @@ $(document).ready(function(){
 //-- Initialize Customerprofile --//
     loadProfile();
     getUserData();
+    //loadUserCart();
+    //loadUserIvoices();
 });
 
 function getUserData(){
@@ -11,7 +13,7 @@ function getUserData(){
         url: "../../Data/user.json",
         success: function(json){
             console.log(json);
-            showUserData(json);
+            loadUserData(json);
         },
         error: function(){
             console.error("An ERROR occured!")
@@ -22,37 +24,51 @@ function getUserData(){
 //-- Navigation User Profile --//
 function loadProfile(){
 
-    let profileCardNavbar = '<div class="card">'
+    let profileCardNavbar = '<div class="card" id="cardStammDaten">'
                            +'<div class="card-header" id="stammDatenHeader">'
                            +'<ul class="nav nav-tabs card-header-tabs">'
-                           +'<li class="nav-item" id="stammDaten">' //onclick="setNavActive()"
-                           +'<a class="nav-link active" aria-current="true" href="#">Stammdaten</a>'
+                           +'<li class="nav-item" id="stammdaten" onclick="setStammdatenActive()">'
+                           +'<a class="nav-link active" href="#">Stammdaten</a>' // aria-current="true"
                            +'</li>'
-                           +'<li class="nav-item" id="userCart">' //onclick="setNavActive()"
-                           +'<a class="nav-link" href="#">Warenkorb</a>'
+                           +'<li class="nav-item" id="userCart" onclick="setUserCartActive()">'
+                           +'<a class="nav-link" id="userCart-link" href="#">Warenkorb</a>'
                            +'</li>'
-                           +'<li class="nav-item" id="invoices">' //onclick="setNavActive()"
-                           +'<a class="nav-link" href="#">Rechnungen</a>'
+                           +'<li class="nav-item" id="invoices" onclick="setUserInvoicesActive()">'
+                           +'<a class="nav-link" id="invoices-link" href="#">Rechnungen</a>'
                            +'</li>'
                            +'</ul>'
+                           +'</div>'
                            +'</div>'
                            +'</div>'
 
     $("#customerData").append(profileCardNavbar);
 }
 
-function setNavActive(){
-    console.log("set attribute")
-    $(".nav-link").attr("class", "nav-link");
-    $(".nav-link").remove("aria-current");
-    console.log(this);
-    $(this).children().attr("class", "nav-link active");    
-    $(this).children().attr("aria-current", "true");
+//-- Navigation User Profile Functionality --//
+function setStammdatenActive(){
+    $(".profile-card-body").hide()
+    $(".nav-link").attr("class", "nav-link")
+    $("#userCart-link").attr("class", "nav-link active")
+    $("#userStammdaten").show();
 }
 
-function showUserData(json){
+function setUserCartActive(){
+    $(".profile-card-body").hide()
+    $(".nav-link").attr("class", "nav-link")
+    $("#userCart-link").attr("class", "nav-link active")
+    $("#userCart").show();
+}
 
-    let userData = '<div class="card-body" id="userStammdaten">'
+function setUserInvoicesActive(){
+    $(".profile-card-body").hide()
+    $(".nav-link").attr("class", "nav-link")
+    $("#invoices-link").attr("class", "nav-link active")
+    $("#invoices").show();
+}
+
+function loadUserData(json){
+
+    let userData = '<div class="profile-card-body" id="userStammdaten">'
                   +'<h5 class="card-title">Ihre Userstammdaten:</h5>'
                   +'<div class="userData" id="userData">'
                   +'<div class="row">'
@@ -76,7 +92,7 @@ function showUserData(json){
                   +'<input type="radio" id="kreditkarte" name="paymentType" value="kreditkarte">'
                   +'<label for="kreditkarte"> Kreditkarte</label><br>'
                   +'<input type="radio" id="eps" name="paymentType" value="eps">'
-                  +'<label for="css"> EPS</label><br>'
+                  +'<label for="eps"> EPS</label><br>'
                   +'<input type="radio" id="Klarna" name="paymentType" value="Klarna">'
                   +'<label for="Klarna"> Klarna</label><br>'
                   +'<input type="radio" id="paypal" name="paymentType" value="paypal">'
@@ -84,11 +100,10 @@ function showUserData(json){
                   +'</div>'
                   +'</div>'
 
+    $("#cardStammDaten").append(userData);
 
-
-    $("#stammDatenHeader").append(userData);
-
-    $("#userDataLable")
+    $(".userDataLable")
         .css({"font-weight": "bold"})
 
 }
+
