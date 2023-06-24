@@ -215,6 +215,7 @@ function loadCart() {
         "margin": "20px 30px 20px 0px"
       });
       loadCartProducts();
+      closePopup();
 };
 
 //-- DragAndDrop --//
@@ -291,7 +292,7 @@ function loadCartProducts(){
 
 function openPopup() {
             document.getElementById('popup').style.display = 'block';
-            //document.getElementById('overlay').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
             // Hier können Sie die Produktliste mit Name, Anzahl, Preis, usw. dynamisch generieren und in das 'order-details'-Element einfügen.
             // Beispiel:
             var productList = [
