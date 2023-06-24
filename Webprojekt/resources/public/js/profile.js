@@ -1,8 +1,16 @@
+//-- Imports --//
+import getCart from './global.js';
+//-- Variables --//
+var userData = [];
+var userCart = [];
+getUserData();
+getCart();
+
 $(document).ready(function(){
 //-- Initialize Customerprofile --//
     loadProfile();
-    getUserData();
-    //loadUserCart();
+    loadUserData();
+    loadCart();
     //loadUserIvoices();
 });
 
@@ -12,8 +20,9 @@ function getUserData(){
         dataType: "json",
         url: "../../Data/user.json",
         success: function(json){
-            console.log(json);
-            loadUserData(json);
+            //console.log(json);
+            userData = json;
+            console.log(userData);
         },
         error: function(){
             console.error("An ERROR occured!")
@@ -27,8 +36,8 @@ function loadProfile(){
     let profileCardNavbar = '<div class="card" id="cardStammDaten">'
                            +'<div class="card-header" id="stammDatenHeader">'
                            +'<ul class="nav nav-tabs card-header-tabs">'
-                           +'<li class="nav-item" id="stammdaten" onclick="setStammdatenActive()">'
-                           +'<a class="nav-link active" href="#">Stammdaten</a>' // aria-current="true"
+                           +'<li class="nav-item" id="userData" onclick="setUserDataActive()">'
+                           +'<a class="nav-link active" id="userData-link"  href="#">Stammdaten</a>'
                            +'</li>'
                            +'<li class="nav-item" id="userCart" onclick="setUserCartActive()">'
                            +'<a class="nav-link" id="userCart-link" href="#">Warenkorb</a>'
@@ -45,10 +54,10 @@ function loadProfile(){
 }
 
 //-- Navigation User Profile Functionality --//
-function setStammdatenActive(){
+function setUserDataActive(){
     $(".profile-card-body").hide()
     $(".nav-link").attr("class", "nav-link")
-    $("#userCart-link").attr("class", "nav-link active")
+    $("#userData-link").attr("class", "nav-link active")
     $("#userStammdaten").show();
 }
 
@@ -56,7 +65,7 @@ function setUserCartActive(){
     $(".profile-card-body").hide()
     $(".nav-link").attr("class", "nav-link")
     $("#userCart-link").attr("class", "nav-link active")
-    $("#userCart").show();
+    $("#userStammdaten").show();
 }
 
 function setUserInvoicesActive(){
@@ -66,44 +75,58 @@ function setUserInvoicesActive(){
     $("#invoices").show();
 }
 
-function loadUserData(json){
-
-    let userData = '<div class="profile-card-body" id="userStammdaten">'
+function loadUserData(){
+    let userDataHtml = '<div class="profile-card-body" id="userStammdaten">'
                   +'<h5 class="card-title">Ihre Userstammdaten:</h5>'
                   +'<div class="userData" id="userData">'
                   +'<div class="row">'
-                  +'<div class="userDataLable col" id="email">Email: </div>'
-                  +'<div class="userDataValue col" id="email">'+json[2].email+'</div>'
+                  +'<div class="userDataLable col" for="changeEmail" id="emailLable">Email: </div>'
+                  +'<div class="userDataValue col" id="emailValue">'+userData[2].email+'</div>' // 
                   +'</div>'
                   +'<div class="row">'
-                  +'<div class="userDataLable col" id="firstname">Vorname: </div>'
-                  +'<div class="userDataValue col" id="firstname">'+json[2].firstname+'</div>'
+                  +'<div class="userDataLable col" for="changeFirstname" id="firstnameLable">Vorname: </div>'
+                  +'<div class="userDataValue col" id="firstnameValue">'+userData[2].firstname+'</div>'
                   +'</div>'
                   +'<div class="row">'
-                  +'<div class="userDataLable col" id="lastname">Nachname: </div>'
-                  +'<div class="userDataValue col" id="lastname">'+json[2].lastname+'</div>'
+                  +'<div class="userDataLable col" for="changeLastname" id="lastnameLable">Nachname: </div>'
+                  +'<div class="userDataValue col" id="lastnameValue">'+userData[2].lastname+'</div>'
                   +'</div>'
-                  +'<a href="#" class="btn btn-primary">Stammdaten anpassen</a>'
-                  +'</div>'
-                  +'<div class="userData" id="userData">'
-                  +'<h5 class="card-title">Ihre Zahlungsart:</h5>'
-                  +'<div class="paymentTypes" id="paymentTypes">'
-                  +'<p>Bitte wählen sie eine Zahlungsart:</p>'
-                  +'<input type="radio" id="kreditkarte" name="paymentType" value="kreditkarte">'
-                  +'<label for="kreditkarte"> Kreditkarte</label><br>'
-                  +'<input type="radio" id="eps" name="paymentType" value="eps">'
-                  +'<label for="eps"> EPS</label><br>'
-                  +'<input type="radio" id="Klarna" name="paymentType" value="Klarna">'
-                  +'<label for="Klarna"> Klarna</label><br>'
-                  +'<input type="radio" id="paypal" name="paymentType" value="paypal">'
-                  +'<label for="paypal"> Paypal</label>'
+                  +'<div class="btn" onclick="changeUserData()">'
+                  +'<button class="btn btn-primary" id="changeDataBtn">Stammdaten anpassen</button>'
                   +'</div>'
                   +'</div>'
 
-    $("#cardStammDaten").append(userData);
+    let userPaymentType = '<div class="userData" id="userData">'
+                        + '<h5 class="card-title">Ihre Zahlungsart:</h5>'
+                        + '<div class="paymentTypes" id="paymentTypes">'
+                        + '<p>Bitte wählen sie eine Zahlungsart:</p>'
+                        + '<input type="radio" id="kreditkarte" name="paymentType" value="kreditkarte">'
+                        + '<label for="kreditkarte"> Kreditkarte</label><br>'
+                        + '<input type="radio" id="eps" name="paymentType" value="eps">'
+                        + '<label for="eps"> EPS</label><br>'
+                        + '<input type="radio" id="Klarna" name="paymentType" value="Klarna">'
+                        + '<label for="Klarna"> Klarna</label><br>'
+                        + '<input type="radio" id="paypal" name="paymentType" value="paypal">'
+                        + '<label for="paypal"> Paypal</label>'
+                        + '</div>'
+                        + '</div>'
+
+    $("#cardStammDaten").append(userDataHtml + userPaymentType);
 
     $(".userDataLable")
         .css({"font-weight": "bold"})
 
 }
 
+function changeUserData(){
+    console.log("changeUserData");
+    getUserData();
+    $("#emailLable").append('<input type="email" class="changeInput center" id="changeEmail" type="text" placeholder="'+json[2].email+'"></input>')
+    $("#firstnameLable").append('<input type="text" class="changeInput" id="changeFirstname" type="text" type="text" placeholder="'+json[2].firstname+'"></input>')
+    $("#lastnameLable").append('<input type="text" class="changeInput" id="changeLastname" type="text" type="text" placeholder="'+json[2].lastname+'"></input>')
+    $("#changeDataBtn").attr('onclick', 'sendDataToBackend')
+}
+
+function loadCart(){
+    getCart();
+}

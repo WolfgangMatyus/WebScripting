@@ -1,30 +1,51 @@
-//--- Variables---//
+//--- VARIABLES ---//
+var products = [];
+getProducts();
+var cartData=[];
+getCart();
 
-//--- Code --//
+//--- CODE ---//
 $(document).ready(function(){
 //-- Initialize SHOPLIST --//
     InitializeSearchFilter();
-    getProducts(function(products){
-        console.log(products);
-        filterProducts(products)
-    });
-    loadHomeCart();
+    filterProducts();
 });
 
-function getProducts(callback){
+function getProducts(){
     $.ajax({
         method: "GET",
         dataType: "json",
         url: "../../Data/products.json",
         success: function(json){
-            console.log(json);
-            callback(json);
+            //console.log(json);
+            products = json;
+            console.log(products);
         },
         error: function(){
             console.error("An ERROR occured!")
         }
     })
 };
+
+function getCart(){
+
+    // WORKAROUND LOAD TEST cart.json
+    $.ajax({
+        method: "GET",
+        dataType: "json",
+        url: "../../Data/cart.json",
+        success: function(json){
+            //console.log(json)
+            cartData = json;
+            console.log(cartData)
+            loadCart();
+        },
+        error: function(){
+            console.error("An ERROR occured!")
+        }
+    })
+    // END WORKAROUND LOAD TEST cart.json
+}
 
 //-- SearchFilter Visuals -- //
 function InitializeSearchFilter(){
@@ -47,13 +68,9 @@ function InitializeSearchFilter(){
                 +'</div>'
                 );
 }
-//-- SearchFilter Functionality-- //
-function filterProducts(products) {
-    //console.log(products);
-    //console.log("filterProducts:");
-    //for (var i = 0; i < products.length; i++) {
-    //console.log("Product: ", products[i].name , products[i].category, products[i].price);
-    //}
+//-- SearchFilter Functionality --//
+function filterProducts() {
+    console.log("filterProducts");
     const searchKeyword = $("#searchInput").val().toLowerCase();
     const categoryFilter = $("#categoryFilter").val();
     const priceFilter = $("#priceFilter").val();
@@ -91,7 +108,7 @@ function filterProducts(products) {
   $("#searchInput, #categoryFilter, #priceFilter").on("input change", filterProducts);
 
 function loadProducts(data) {
-
+    console.log("loadProducts");
     let productCardsList = '<div id="productList" class="row row-cols-1 row-cols-md-3 g-4">'
                         +  '</div>'
 
@@ -131,50 +148,53 @@ function loadProducts(data) {
     });  
 }
 
-//-- HOMESHOPPING_CARD --//  
-function loadHomeCart() {
-
-    let homeCartList = '<ul class="homeCartList" id="homeCartList">'
-                    +  '<div class="Placeholder" id="homeCartListPlaceholder">'
+//-- HOMESHOPPING_CART --//  
+function loadCart() {
+    console.log("loadCart");
+    let cartHeader = '<div class="header" id="cartHeader">'
+                    +'<div class="row">'
+                    +'<div class="col center"><h5>Product Name</5></div>'
+                    +'<div class="col center"><h5>Quantity</5></div>'
+                    +'<div class="col center"><h5>Price Single</5></div>'
+                    +'<div class="col center"><h5>Total</5></div>'
+                    +'</div>'
+                    +'</div>'
+    let cartList = '<ul class="cartList" id="cartList">'
+                    +  '<div class="Placeholder" id="cartListPlaceholder">'
                     +  'You can drag a Product and drop it here to add it to the Shopping Cart!'
                     +  '</div>'
                     +  '</ul>'
-    let homeCartSum = '<div class="row">'
+    let cartSum = '<div class="row">'
                     + '<div class="col" id="cartSumLable">SUMME:</div>'
                     + '<div class="col" id="cartSumValue">0,00</div>'
                     + '</div>'
-    let homeCartHeader = '<div class="header" id="homeCartHeader">'
-                        +'<div class="row">'
-                        +'<div class="col center"><h5>Product Name</5></div>'
-                        +'<div class="col center"><h5>Quantity</5></div>'
-                        +'<div class="col center"><h5>Price Single</5></div>'
-                        +'<div class="col center"><h5>Total</5></div>'
-                        +'</div>'
-                        +'</div>'
-
-    let homeCart = '<div class="col">'
-    +  '<div class="card droppable h-100" ondrop="drop(event)" ondragover="allowDrop(event)" id="homeCart">'
-    +  '<div class="card-header">'
-    +  '<h4 class="cartName">Shopping Cart</h4>'
-    +  '</div>'
-    +  homeCartHeader
-    +  homeCartList
-    +  '<div class="card-footer">'
-    +  '<small class="text-body-secondary">'
-    +  homeCartSum
-    +  '</small>'
-    +  '</div>'
-    +  '</div>'
     
-    $("#homeCartContainer")
-    .append(homeCart)
+    let cart = '<div class="col">'
+            +  '<div class="card droppable h-100" ondrop="drop(event)" ondragover="allowDrop(event)" id="cart">'
+            +  '<div class="card-header">'
+            +  '<h4 class="cartName">Shopping Cart</h4>'
+            +  '</div>'
+            +  cartHeader
+            +  cartList
+            +  '<div class="card-footer">'
+            +  '<small class="text-body-secondary">'
+            +  cartSum
+            +  '</small>'
+            +  '</div>'
+            +  '<button class="btn btn-primary" id="orderBtn">Zahlungspflichtig bestellen</button>'
+            +  '</div>'
+            console.log(cart);
+    $("#cartContainer")
+    .append(cart)
 
-    $("#homeCartListPlaceholder").css({
+    $("#cartListPlaceholder").css({
         "border-style": "dotted",
         "border-radius": "15px",
         "padding": "40px",
         "margin": "20px 30px 20px 0px"
       });
+
+      loadCartProducts();
 };
 
 //-- DragAndDrop --//
@@ -198,13 +218,13 @@ function drop(event){
 function sendCartProduct(data){
     
     let response = data;
-    getCartFromBackend(response);
+    getCart(response);
 
-    // WORKAROUND LOAD TEST cartproducts.json
-    // Every drag and drop sends a POST with CartProductID to REST-API 
-    // wich adds the id to a cartlist and returns the current 
-    // Shopping Cart Items with values in response like in 
-    // Data/cartproducts.json
+    // WORKAROUND LOAD TEST cart.json
+    // Every drag and drop sends a POST with CartProductID to REST-API
+    // wich adds the id to a cartlist and returns the current
+    // Shopping Cart Items with values in response like in
+    // Data/cart.json
 
     /*var cartproductid = {
         id: data,
@@ -227,41 +247,21 @@ function sendCartProduct(data){
     })
     */
 }
-
-function getCartFromBackend(response){
-
-    // WORKAROUND LOAD TEST cartproducts.json
-    $.ajax({
-        method: "GET",
-        dataType: "json",
-        url: "../../Data/cartproducts.json",
-
-        success: function(json){
-            console.log(json)
-            loadCartOnFrontend(json)
-        },
-        error: function(json){
-            console.error("An ERROR occured!")
-        }
-    })
-    // END WORKAROUND LOAD TEST cartproducts.json
-}
     
-function loadCartOnFrontend(data){
-
+function loadCartProducts(){
+    console.log("loadCartProducts");
     $(".Placeholder").remove();
-
-    $.each(data, function (i, data) {
+    console.log(cartData);
+    $.each(cartData, function (i, cartData) {
             
-        let cardBody = '<li class="listItem" id="' + data.id + '">'
-        + '<span class="listItemValue" id="productName">' + data.name + '</span>'
-        + '<span class="listItemValue Number" id="productQuantity">' + data.quantity + '</span>'
-        + '<span class="listItemValue Number" id="productPriceSingle"> ' + data.price_single + '</span>'
-        + '<span class="listItemValue Number" id="productPriceTotal">'+ data.price_total + '</span>'
+        let cardBody = '<li class="listItem" id="' + cartData + '">'
+        + '<span class="listItemValue" id="productName">' + cartData.name + '</span>'
+        + '<span class="listItemValue Number" id="productQuantity">' + cartData.quantity + '</span>'
+        + '<span class="listItemValue Number" id="productPriceSingle"> ' + cartData.price_single + '</span>'
+        + '<span class="listItemValue Number" id="productPriceTotal">'+ cartData.price_total + '</span>'
         + '</li>'
     
-       
-    $("#homeCartList").append(cardBody);
+    $("#cartList").append(cardBody);
     })
     $(".Number")
     .css({"text-align": "right"
