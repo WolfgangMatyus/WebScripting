@@ -206,8 +206,6 @@ function loadCart() {
             + '<button onclick="closePopup()">Bestellung abschließen</button>'
             + '</div>'
 
-            + '<div id="overlay" class="overlay" style="display: none;"></div>'
-
     $("#cartContainer").append(cart)
     $("#categorySearchFilter").append(popupWindow) 
     $("#cartListPlaceholder").css({
@@ -216,7 +214,6 @@ function loadCart() {
         "padding": "40px",
         "margin": "20px 30px 20px 0px"
       });
-
       loadCartProducts();
 };
 
@@ -294,7 +291,7 @@ function loadCartProducts(){
 
 function openPopup() {
             document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
+            //document.getElementById('overlay').style.display = 'block';
             // Hier können Sie die Produktliste mit Name, Anzahl, Preis, usw. dynamisch generieren und in das 'order-details'-Element einfügen.
             // Beispiel:
             var productList = [
@@ -328,5 +325,5 @@ function applyCoupon() {
 
 function closePopup() {
     document.getElementById('popup').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
+    //document.getElementById('overlay').style.display = 'none';
 }
