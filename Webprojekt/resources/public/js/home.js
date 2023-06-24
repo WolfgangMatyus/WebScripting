@@ -177,7 +177,7 @@ function loadCartHTML() {
             +  '</div>'
 
     let popupWindow = '<h2>Ihre Bestellung</h2>'
-            + '<div id="order-details"></div>'
+            + '<div id="orderPopup"></div>'
             + '<label for="coupon-input">Gutschein einlösen:</label>'
             + '<input type="text" id="coupon-input" />'
             + '<br />'
@@ -220,7 +220,7 @@ function drag(event){
 function drop(event){
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
-    console.log(data)
+    console.log(data + " dropped")
     var draggedElement = document.querySelector("#" + data);
 
     sendCartProduct(data);
@@ -230,7 +230,8 @@ function sendCartProduct(data){
     
     let response = data;
     getCart();
-    loadCartProducts();
+    let to = "cartList";
+    loadCartProducts(to);
 
     // WORKAROUND LOAD TEST cart.json
     // Every drag and drop sends a POST with CartProductID to REST-API
@@ -260,21 +261,21 @@ function sendCartProduct(data){
     */
 }
     
-function loadCartProducts(){
+function loadCartProducts(to){
     console.log("loadCartProducts");
     $(".Placeholder").remove();
     
     $.each(cartData, function (i, cartData) {
-        console.log(cartData);
+        //console.log(cartData);
         $.each(cartData.cartProducts, function (i, cartProducts) {
-            console.log(cartProducts);
+            //console.log(cartProducts);
             let cartBody = '<li class="listItem" id="' + cartProducts.id + '">'
             + '<span class="listItemValue" id="productName">' + cartProducts.name + '</span>'
             + '<span class="listItemValue Number" id="productQuantity">' + cartProducts.quantity + '</span>'
             + '<span class="listItemValue Number" id="productPriceSingle"> ' + cartProducts.price_single + '</span>'
             + '<span class="listItemValue Number" id="productPriceTotal">'+ cartProducts.price_total + '</span>'
             + '</li>'
-            $("#cartList").append(cartBody);
+            $("#" + to).append(cartBody);
         })
     })
     $(".Number")
@@ -284,31 +285,9 @@ function loadCartProducts(){
 function openPopup() {
     document.getElementById("popup").style.display = "block";
     document.getElementById("overlay").style.display = "block";
-    // Hier können Sie die Produktliste mit Name, Anzahl, Preis, usw. dynamisch generieren und in das 'order-details'-Element einfügen.
-    // Beispiel:
-    var productList = [
-      { name: "Produkt 1", quantity: 2, price: 10 },
-      { name: "Produkt 2", quantity: 1, price: 5 },
-      { name: "Produkt 3", quantity: 3, price: 8 },
-    ];
-    var orderDetailsHTML = "";
-    var totalAmount = 0;
-    for (var i = 0; i < productList.length; i++) {
-      var product = productList[i];
-      var totalPrice = product.quantity * product.price;
-      orderDetailsHTML += "<p>" 
-                        + product.name 
-                        + " - " 
-                        + product.quantity 
-                        + "x - Preis: " 
-                        + product.price 
-                        + "€ - Gesamt: " 
-                        + totalPrice 
-                        + "€</p>";
-                        totalAmount += totalPrice;
-    }
-    document.getElementById("order-details").innerHTML = orderDetailsHTML;
-    document.getElementById("total-amount").innerHTML = totalAmount + '€';
+    let to = "oderPopup";
+    loadCartProducts(to);
+    console.log("openPopup" + this.class)
   }
 
 function applyCoupon() {
