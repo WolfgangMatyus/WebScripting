@@ -181,12 +181,35 @@ function loadCart() {
             +  cartSum
             +  '</small>'
             +  '</div>'
-            +  '<button class="btn btn-primary" id="orderBtn">Zahlungspflichtig bestellen</button>'
+            +  '<button class="btn btn-primary" id="orderBtn" onclick="openPopup()">Jetzt bestellen!</button>'
             +  '</div>'
-            console.log(cart);
-    $("#cartContainer")
-    .append(cart)
+            
+    let popupWindow = '<div id="popup" class="popup">'
+            + '<h2>Ihre Bestellung</h2>'
+            + '<div id="order-details"></div>'
+            + '<label for="coupon-input">Gutschein einlösen:</label>'
+            + '<input type="text" id="coupon-input" />'
+            + '<br />'
+            + '<button onclick="applyCoupon()">Gutschein einlösen</button>'
+            + '<br />'
+            + '<div class="row">'
+            + '<div class="col" id="total-amountLable">SUMME: </div>'
+            + '<div class="col" id="total-amount">0,00</div>'
+            + '</div>'
+            + '<label for="payment-method">Zahlungsmethode:</label>'
+            + '<select id="payment-method">'
+            + '<option value="Kreditkarte">Kreditkarte</option>'
+            + '<option value="EPS">EPS</option>'
+            + '<option value="Klarna">Klarna</option>'
+            + '</select>'
+            + '<br />'
+            + '<button onclick="closePopup()">Bestellung abschließen</button>'
+            + '</div>'
 
+            + '<div id="overlay" class="overlay" style="display: none;"></div>'
+
+    $("#cartContainer").append(cart)
+    $("#categorySearchFilter").append(popupWindow) 
     $("#cartListPlaceholder").css({
         "border-style": "dotted",
         "border-radius": "15px",
@@ -269,6 +292,41 @@ function loadCartProducts(){
 
 }
 
+function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+            // Hier können Sie die Produktliste mit Name, Anzahl, Preis, usw. dynamisch generieren und in das 'order-details'-Element einfügen.
+            // Beispiel:
+            var productList = [
+                { name: 'Produkt 1', quantity: 2, price: 10 },
+                { name: 'Produkt 2', quantity: 1, price: 5 },
+                { name: 'Produkt 3', quantity: 3, price: 8 }
+            ];
+            var orderDetailsHTML = '';
+            var totalAmount = 0;
+            for (var i = 0; i < productList.length; i++) {
+                var product = productList[i];
+                var totalPrice = product.quantity * product.price;
+                orderDetailsHTML += '<p>' + product.name + ' - ' + product.quantity + 'x - Preis: ' + product.price + '€ - Gesamt: ' + totalPrice + '€</p>';
+                totalAmount += totalPrice;
+            }
+            document.getElementById('order-details').innerHTML = orderDetailsHTML;
+            document.getElementById('total-amount').innerHTML = totalAmount;
+        }
 
- 
+function applyCoupon() {
+    var couponInput = document.getElementById('coupon-input').value;
+    // Hier können Sie den Gutscheinwert prüfen und die Gesamtsumme entsprechend reduzieren.
+    // Beispiel:
+    var totalAmount = parseFloat(document.getElementById('total-amount').innerHTML);
+    var couponValue = parseFloat(couponInput);
+    if (!isNaN(couponValue)) {
+        totalAmount -= couponValue;
+    }
+    document.getElementById('total-amount').innerHTML = totalAmount + '€';
+}
 
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
