@@ -1,16 +1,10 @@
 //--- VARIABLES ---//
 var products = [];
 getProducts();
-var cartData=[];
+var cartData = [];
 getCart();
 
 //--- CODE ---//
-$(document).ready(function(){
-//-- Initialize SHOPLIST --//
-    InitializeSearchFilter();
-    filterProducts();
-});
-
 function getProducts(){
     $.ajax({
         method: "GET",
@@ -37,8 +31,7 @@ function getCart(){
         success: function(json){
             //console.log(json)
             cartData = json;
-            console.log(cartData)
-            loadCart();
+            console.log(cartData);
         },
         error: function(){
             console.error("An ERROR occured!")
@@ -149,7 +142,7 @@ function loadProducts(data) {
 }
 
 //-- HOMESHOPPING_CART --//  
-function loadCart() {
+function loadCartHTML() {
     console.log("loadCart");
     let cartHeader = '<div class="header" id="cartHeader">'
                     +'<div class="row">'
@@ -183,14 +176,13 @@ function loadCart() {
             +  '</div>'
             +  '<button class="btn btn-primary" id="orderBtn" onclick="openPopup()">Jetzt bestellen!</button>'
             +  '</div>'
-            
-    let popupWindow = '<div id="popup" class="popup">'
-            + '<h2>Ihre Bestellung</h2>'
+
+    let popupWindow = '<h2>Ihre Bestellung</h2>'
             + '<div id="order-details"></div>'
             + '<label for="coupon-input">Gutschein einlösen:</label>'
             + '<input type="text" id="coupon-input" />'
             + '<br />'
-            + '<button onclick="applyCoupon()">Gutschein einlösen</button>'
+            + '<button class="btn btn-primary" onclick="applyCoupon()">Gutschein einlösen</button>'
             + '<br />'
             + '<div class="row">'
             + '<div class="col" id="total-amountLable">SUMME: </div>'
@@ -203,18 +195,17 @@ function loadCart() {
             + '<option value="Klarna">Klarna</option>'
             + '</select>'
             + '<br />'
-            + '<button onclick="closePopup()">Bestellung abschließen</button>'
+            + '<button class="btn btn-primary" onclick="closePopup()">Bestellung abschließen</button>'
             + '</div>'
 
     $("#cartContainer").append(cart)
-    $("#categorySearchFilter").append(popupWindow) 
+    $("#popup").append(popupWindow) 
     $("#cartListPlaceholder").css({
         "border-style": "dotted",
         "border-radius": "15px",
         "padding": "40px",
         "margin": "20px 30px 20px 0px"
       });
-      loadCartProducts();
       closePopup();
 };
 
@@ -239,7 +230,8 @@ function drop(event){
 function sendCartProduct(data){
     
     let response = data;
-    getCart(response);
+    getCart();
+    loadCartProducts();
 
     // WORKAROUND LOAD TEST cart.json
     // Every drag and drop sends a POST with CartProductID to REST-API
@@ -275,43 +267,49 @@ function loadCartProducts(){
     console.log(cartData);
     $.each(cartData, function (i, cartData) {
             
-        let cardBody = '<li class="listItem" id="' + cartData + '">'
+        let cartBody = '<li class="listItem" id="' + cartData[0] + '">'
         + '<span class="listItemValue" id="productName">' + cartData.name + '</span>'
         + '<span class="listItemValue Number" id="productQuantity">' + cartData.quantity + '</span>'
         + '<span class="listItemValue Number" id="productPriceSingle"> ' + cartData.price_single + '</span>'
         + '<span class="listItemValue Number" id="productPriceTotal">'+ cartData.price_total + '</span>'
         + '</li>'
     
-    $("#cartList").append(cardBody);
+    $("#cartList").append(cartBody);
     })
     $(".Number")
     .css({"text-align": "right"
 })
-
 }
 
 function openPopup() {
-            document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-            // Hier können Sie die Produktliste mit Name, Anzahl, Preis, usw. dynamisch generieren und in das 'order-details'-Element einfügen.
-            // Beispiel:
-            var productList = [
-                { name: 'Produkt 1', quantity: 2, price: 10 },
-                { name: 'Produkt 2', quantity: 1, price: 5 },
-                { name: 'Produkt 3', quantity: 3, price: 8 }
-            ];
-            var orderDetailsHTML = '';
-            var totalAmount = 0;
-            for (var i = 0; i < productList.length; i++) {
-                var product = productList[i];
-                var totalPrice = product.quantity * product.price;
-                orderDetailsHTML += '<p>' + product.name + ' - ' + product.quantity + 'x - Preis: ' + product.price + '€ - Gesamt: ' + totalPrice + '€</p>';
-                totalAmount += totalPrice;
-            }
-            document.getElementById('order-details').innerHTML = orderDetailsHTML;
-            document.getElementById('total-amount').innerHTML = totalAmount;
-        }
-
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+    // Hier können Sie die Produktliste mit Name, Anzahl, Preis, usw. dynamisch generieren und in das 'order-details'-Element einfügen.
+    // Beispiel:
+    var productList = [
+      { name: "Produkt 1", quantity: 2, price: 10 },
+      { name: "Produkt 2", quantity: 1, price: 5 },
+      { name: "Produkt 3", quantity: 3, price: 8 },
+    ];
+    var orderDetailsHTML = "";
+    var totalAmount = 0;
+    for (var i = 0; i < productList.length; i++) {
+      var product = productList[i];
+      var totalPrice = product.quantity * product.price;
+      orderDetailsHTML += "<p>" 
+                        + product.name 
+                        + " - " 
+                        + product.quantity 
+                        + "x - Preis: " 
+                        + product.price 
+                        + "€ - Gesamt: " 
+                        + totalPrice 
+                        + "€</p>";
+                        totalAmount += totalPrice;
+    }
+    document.getElementById("order-details").innerHTML = orderDetailsHTML;
+    document.getElementById("total-amount").innerHTML = totalAmount + '€';
+  }
 function applyCoupon() {
     var couponInput = document.getElementById('coupon-input').value;
     // Hier können Sie den Gutscheinwert prüfen und die Gesamtsumme entsprechend reduzieren.
@@ -325,6 +323,13 @@ function applyCoupon() {
 }
 
 function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-    //document.getElementById('overlay').style.display = 'none';
-}
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+  }
+
+$(document).ready(function(){
+    //-- Initialize SHOPLIST --//
+        InitializeSearchFilter();
+        filterProducts();
+        loadCartHTML();
+    });
