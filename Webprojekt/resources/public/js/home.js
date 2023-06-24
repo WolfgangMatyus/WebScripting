@@ -4,6 +4,13 @@ getProducts();
 var cartData = [];
 getCart();
 
+$(document).ready(function(){
+    //-- Initialize SHOPLIST --//
+        InitializeSearchFilter();
+        filterProducts();
+        loadCartHTML();
+    });
+
 //--- CODE ---//
 function getProducts(){
     $.ajax({
@@ -205,7 +212,6 @@ function loadCartHTML() {
         "padding": "40px",
         "margin": "20px 30px 20px 0px"
       });
-      closePopup();
 };
 
 //-- DragAndDrop --//
@@ -307,9 +313,3 @@ function closePopup() {
     document.getElementById("overlay").style.display = "none";
   }
 
-$(document).ready(function(){
-    //-- Initialize SHOPLIST --//
-        InitializeSearchFilter();
-        filterProducts();
-        loadCartHTML();
-    });
