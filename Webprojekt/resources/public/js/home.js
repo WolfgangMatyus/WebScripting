@@ -22,7 +22,6 @@ function getProducts(){
 };
 
 function getCart(){
-
     // WORKAROUND LOAD TEST cart.json
     $.ajax({
         method: "GET",
@@ -264,21 +263,22 @@ function sendCartProduct(data){
 function loadCartProducts(){
     console.log("loadCartProducts");
     $(".Placeholder").remove();
-    console.log(cartData);
-    $.each(cartData, function (i, cartData) {
-            
-        let cartBody = '<li class="listItem" id="' + cartData[0] + '">'
-        + '<span class="listItemValue" id="productName">' + cartData.name + '</span>'
-        + '<span class="listItemValue Number" id="productQuantity">' + cartData.quantity + '</span>'
-        + '<span class="listItemValue Number" id="productPriceSingle"> ' + cartData.price_single + '</span>'
-        + '<span class="listItemValue Number" id="productPriceTotal">'+ cartData.price_total + '</span>'
-        + '</li>'
     
-    $("#cartList").append(cartBody);
+    $.each(cartData, function (i, cartData) {
+        console.log(cartData);
+        $.each(cartData.cartProducts, function (i, cartProducts) {
+            console.log(cartProducts);
+            let cartBody = '<li class="listItem" id="' + cartProducts.id + '">'
+            + '<span class="listItemValue" id="productName">' + cartProducts.name + '</span>'
+            + '<span class="listItemValue Number" id="productQuantity">' + cartProducts.quantity + '</span>'
+            + '<span class="listItemValue Number" id="productPriceSingle"> ' + cartProducts.price_single + '</span>'
+            + '<span class="listItemValue Number" id="productPriceTotal">'+ cartProducts.price_total + '</span>'
+            + '</li>'
+            $("#cartList").append(cartBody);
+        })
     })
     $(".Number")
-    .css({"text-align": "right"
-})
+    .css({"text-align": "right"});
 }
 
 function openPopup() {
@@ -310,6 +310,7 @@ function openPopup() {
     document.getElementById("order-details").innerHTML = orderDetailsHTML;
     document.getElementById("total-amount").innerHTML = totalAmount + '€';
   }
+
 function applyCoupon() {
     var couponInput = document.getElementById('coupon-input').value;
     // Hier können Sie den Gutscheinwert prüfen und die Gesamtsumme entsprechend reduzieren.

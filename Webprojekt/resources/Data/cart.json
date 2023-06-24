@@ -2,7 +2,7 @@
     {
         "id": 1,
         "userID": 1,
-        "products": [{
+        "cartProducts": [{
             "id": 1,
             "name": "Pokerkoffer",
             "price_single": 49.90,
