@@ -1,7 +1,7 @@
 .container {
     display: grid;
     box-sizing: border-box;
-    border-style: solid;
+    /*border-style: solid;*/
 }
 
 .popup {
@@ -28,4 +28,8 @@
     background-color: rgba(0, 0, 0, 0.5);
     /* Weichzeichnen des Hintergrunds */
     z-index: 9998;
+  }
+
+  #shoppingCart{
+    position: fixed;
   }

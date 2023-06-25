@@ -1,7 +1,10 @@
 //--- VARIABLES ---//
 var products = [];
 var cartData = [];
+var cartSum = 0.00;
 
+//--- CODE ---//
+waitFor2Jobs();
 async function waitFor2Jobs() {
   try {
     await getProducts();
@@ -15,9 +18,6 @@ async function waitFor2Jobs() {
   }
 }
 
-waitFor2Jobs();
-
-//--- CODE ---//
 function getProducts() {
   return new Promise(function (resolve, reject) {
     $.ajax({
@@ -64,21 +64,21 @@ function getCart() {
 function InitializeSearchFilter() {
   $("#categorySearchFilter").append(
     '<div id="filterContainer">' +
-      '<select id="categoryFilter">' +
-      '<option value="">All Categories</option>' +
-      '<option value="Cardgame">Cardgame</option>' +
-      '<option value="Boardgame">Boardgame</option>' +
-      '<option value="Accesories">Accesories</option>' +
-      '<option value="rating">Rating</option>' +
-      "</select>" +
-      '<select id="priceFilter">' +
-      '<option value="">All Prices</option>' +
-      '<option value="under25"> < €25</option>' +
-      '<option value="25to50">€25 - €50</option>' +
-      '<option value="over50"> > €50</option>' +
-      "</select>" +
-      '<input type="text" id="searchInput" placeholder="Search products">' +
-      "</div>"
+    '<select id="categoryFilter">' +
+    '<option value="">All Categories</option>' +
+    '<option value="Cardgame">Cardgame</option>' +
+    '<option value="Boardgame">Boardgame</option>' +
+    '<option value="Accesories">Accesories</option>' +
+    '<option value="rating">Rating</option>' +
+    "</select>" +
+    '<select id="priceFilter">' +
+    '<option value="">All Prices</option>' +
+    '<option value="under25"> < €25</option>' +
+    '<option value="25to50">€25 - €50</option>' +
+    '<option value="over50"> > €50</option>' +
+    "</select>" +
+    '<input type="text" id="searchInput" placeholder="Search products">' +
+    "</div>"
   );
 }
 //-- SearchFilter Functionality --//
@@ -164,7 +164,7 @@ function loadProducts(data) {
       "</div>";
 
     $("#productList").append(
-      '<div class="col">' +
+        '<div class="col">' +
         '<div class="card h-100" id="card' +
         i +
         '" draggable="true" ondragstart="drag(event)">' +
@@ -202,11 +202,11 @@ function loadCartHTML() {
   let cartSum =
     '<div class="row">' +
     '<div class="col" id="cartSumLable">SUMME:</div>' +
-    '<div class="col" id="cartSumValue">0,00</div>' +
+    '<div class="col total-amount Number" id="cartSum">0,00 €</div>' +
     "</div>";
 
   let cart =
-    '<div class="col">' +
+    '<div class="col" id="shoppingCart">' +
     '<div class="card droppable h-100" ondrop="drop(event)" ondragover="allowDrop(event)" id="cart">' +
     '<div class="card-header">' +
     '<h4 class="cartName">Shopping Cart</h4>' +
@@ -224,23 +224,32 @@ function loadCartHTML() {
   let popupWindow =
     "<h2>Ihre Bestellung</h2>" +
     '<div id="orderPopup"></div>' +
-    '<label for="coupon-input">Gutschein einlösen:</label>' +
-    '<input type="text" id="coupon-input" />' +
-    "<br />" +
-    '<button class="btn btn-primary" onclick="applyCoupon()">Gutschein einlösen</button>' +
-    "<br />" +
+    '<div>' +
+    '<label for="coupon-input">Gutscheincode hier eingeben:</label>' +
+    '</div>' +
     '<div class="row">' +
-    '<div class="col" id="total-amountLable">SUMME: </div>' +
-    '<div class="col" id="total-amount">0,00</div>' +
-    "</div>" +
+    '<div class="col">' +
+    '<input type="text" id="coupon-input">' +
+    '</div>' +
+    '<div class="col Number" id="coupon-amount">0,00 €</div>' +
+    '</div>' +
+    '<button class="btn btn-primary" onclick="applyCoupon()">Gutschein einlösen</button>' +
+    '<div class="row">' +
+    '<div class="col" id="total-amountLable">MwSt 20 % : </div>' +
+    '<div class="col Number" id="tax-amount">0,00 €</div>' +
+    '</div>' +
+    '<hr>' +
+    '<div class="row">' +
+    '<div class="col" id="orderSumLable">SUMME : </div>' +
+    '<div class="col total-amount Number" id="orderSum">0,00 €</div>' +
+    '</div>' +
     '<label for="payment-method">Zahlungsmethode:</label>' +
     '<select id="payment-method">' +
     '<option value="Kreditkarte">Kreditkarte</option>' +
     '<option value="EPS">EPS</option>' +
     '<option value="Klarna">Klarna</option>' +
     "</select>" +
-    "<br />" +
-    '<button class="btn btn-primary" onclick="closePopup()">Bestellung abschließen</button>' +
+    '<button class="btn btn-primary" onclick="closePopup()">Zahlungspflichtig bestellen!</button>' +
     "</div>";
 
   $("#cartContainer").append(cart);
@@ -251,6 +260,7 @@ function loadCartHTML() {
     padding: "40px",
     margin: "20px 30px 20px 0px",
   });
+  $(".Number").css({ "text-align": "right" });
 }
 
 //-- DragAndDrop --//
@@ -272,7 +282,7 @@ function drop(event) {
 }
 //-- write ShoppingCart to CartProductsJson
 function sendCartProduct(data) {
-  let response = data;
+
   getCart();
   let to = "cartList";
   loadCartProducts(to);
@@ -306,8 +316,8 @@ function sendCartProduct(data) {
 }
 
 function loadCartProducts(to) {
-  console.log("loadCartProducts");
-  $(".Placeholder").remove();
+  console.log("loadCartProducts " + to);
+  $(".Placeholder").hide();
 
   $.each(cartData, function (i, cartData) {
     //console.log(cartData);
@@ -330,35 +340,46 @@ function loadCartProducts(to) {
         cartProducts.price_total +
         "</span>" +
         "</li>";
+        var price = parseFloat(cartProducts.price_total);
+        cartSum += price;
       $("#" + to).append(cartBody);
     });
   });
+  var totalAmount = cartSum;
+  cartSum = 0.00;
+  document.getElementById("cartSum").innerHTML = totalAmount.toFixed(2) + " €";
+  document.getElementById("orderSum").innerHTML = (parseFloat(document.getElementById("cartSum").innerHTML)).toFixed(2) + " €";
+  document.getElementById("tax-amount").innerHTML = (parseFloat(document.getElementById("orderSum").innerHTML)/100*20).toFixed(2) + " €";
   $(".Number").css({ "text-align": "right" });
 }
 
 function openPopup() {
-  document.getElementById("popup").style.display = "block";
-  document.getElementById("overlay").style.display = "block";
-  let to = "oderPopup";
-  loadCartProducts(to);
-  console.log("openPopup" + this.class);
-}
+    console.log("openPopup");
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+    let to = "orderPopup";
+    loadCartProducts(to);
+  }
 
 function applyCoupon() {
   var couponInput = document.getElementById("coupon-input").value;
   // Hier können Sie den Gutscheinwert prüfen und die Gesamtsumme entsprechend reduzieren.
   // Beispiel:
-  var totalAmount = parseFloat(
-    document.getElementById("total-amount").innerHTML
-  );
-  var couponValue = parseFloat(couponInput);
+  var totalAmount = parseFloat(document.getElementById("orderSum").innerHTML).toFixed(2);
+  var couponValue = parseFloat(couponInput).toFixed(2);
   if (!isNaN(couponValue)) {
     totalAmount -= couponValue;
   }
-  document.getElementById("total-amount").innerHTML = totalAmount + "€";
+  document.getElementById("coupon-amount").innerHTML = couponInput + " €";
+  document.getElementById("orderSum").innerHTML = totalAmount + " €";
 }
 
 function closePopup() {
   document.getElementById("popup").style.display = "none";
   document.getElementById("overlay").style.display = "none";
+  totalAmount = 0.00;
+  document.getElementById("orderSum").innerHTML = (parseFloat(document.getElementById("cartSum").innerHTML)).toFixed(2) + " €";
+  document.getElementById("cartSum").innerHTML = totalAmount.toFixed(2) + " €";
+  $(".listItem").remove();
+  $(".Placeholder").show();
 }
