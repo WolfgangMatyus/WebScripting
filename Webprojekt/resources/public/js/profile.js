@@ -1,17 +1,19 @@
 //-- Imports --//
-import getCart from './global.js';
+// import getCart from './global.js';
 //-- Variables --//
 var userData = [];
 var userCart = [];
 getUserData();
-getCart();
+//getCart();
+
+function loadCart(){
+    getCart();
+}
 
 $(document).ready(function(){
 //-- Initialize Customerprofile --//
     loadProfile();
     loadUserData();
-    loadCart();
-    //loadUserIvoices();
 });
 
 function getUserData(){
@@ -37,13 +39,13 @@ function loadProfile(){
                            +'<div class="card-header" id="stammDatenHeader">'
                            +'<ul class="nav nav-tabs card-header-tabs">'
                            +'<li class="nav-item" id="userData" onclick="setUserDataActive()">'
-                           +'<a class="nav-link active" id="userData-link"  href="#">Stammdaten</a>'
+                           +'<a class="nav-link active" id="userData-link">Stammdaten</a>'
                            +'</li>'
                            +'<li class="nav-item" id="userCart" onclick="setUserCartActive()">'
-                           +'<a class="nav-link" id="userCart-link" href="#">Warenkorb</a>'
+                           +'<a class="nav-link" id="userCart-link">Warenkorb</a>'
                            +'</li>'
                            +'<li class="nav-item" id="invoices" onclick="setUserInvoicesActive()">'
-                           +'<a class="nav-link" id="invoices-link" href="#">Rechnungen</a>'
+                           +'<a class="nav-link" id="invoices-link">Rechnungen</a>'
                            +'</li>'
                            +'</ul>'
                            +'</div>'
@@ -63,6 +65,7 @@ function setUserDataActive(){
 
 function setUserCartActive(){
     $(".profile-card-body").hide()
+    loadCart();
     $(".nav-link").attr("class", "nav-link")
     $("#userCart-link").attr("class", "nav-link active")
     $("#userStammdaten").show();
@@ -70,18 +73,20 @@ function setUserCartActive(){
 
 function setUserInvoicesActive(){
     $(".profile-card-body").hide()
+    loadUserIvoices();
     $(".nav-link").attr("class", "nav-link")
     $("#invoices-link").attr("class", "nav-link active")
     $("#invoices").show();
 }
 
 function loadUserData(){
+    console.log("loadUserData: " + userData);
     let userDataHtml = '<div class="profile-card-body" id="userStammdaten">'
                   +'<h5 class="card-title">Ihre Userstammdaten:</h5>'
                   +'<div class="userData" id="userData">'
                   +'<div class="row">'
                   +'<div class="userDataLable col" for="changeEmail" id="emailLable">Email: </div>'
-                  +'<div class="userDataValue col" id="emailValue">'+userData[2].email+'</div>' // 
+                  +'<div class="userDataValue col" id="emailValue">'+userData[2].email+'</div>'
                   +'</div>'
                   +'<div class="row">'
                   +'<div class="userDataLable col" for="changeFirstname" id="firstnameLable">Vorname: </div>'
@@ -91,8 +96,8 @@ function loadUserData(){
                   +'<div class="userDataLable col" for="changeLastname" id="lastnameLable">Nachname: </div>'
                   +'<div class="userDataValue col" id="lastnameValue">'+userData[2].lastname+'</div>'
                   +'</div>'
-                  +'<div class="btn" onclick="changeUserData()">'
-                  +'<button class="btn btn-primary" id="changeDataBtn">Stammdaten anpassen</button>'
+                  +'<div class="btn">'
+                  +'<button class="btn btn-primary" id="changeDataBtn" onclick="changeUserData()">Stammdaten anpassen</button>'
                   +'</div>'
                   +'</div>'
 
@@ -115,7 +120,6 @@ function loadUserData(){
 
     $(".userDataLable")
         .css({"font-weight": "bold"})
-
 }
 
 function changeUserData(){
@@ -127,6 +131,3 @@ function changeUserData(){
     $("#changeDataBtn").attr('onclick', 'sendDataToBackend')
 }
 
-function loadCart(){
-    getCart();
-}

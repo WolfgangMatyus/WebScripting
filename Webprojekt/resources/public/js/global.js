@@ -1,5 +1,5 @@
 
-
+/*
 export default function getCart(){
     $.ajax({
         method: "GET",
@@ -14,3 +14,4 @@ export default function getCart(){
         }
     })
 };
+*/
