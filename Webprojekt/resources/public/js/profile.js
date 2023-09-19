@@ -1,5 +1,5 @@
 //-- Imports --//
-// import getCart from './global.js';
+import {getProducts, getUser, getCart} from './global.js';
 //-- Variables --//
 var userData = [];
 var userCart = [];
@@ -10,8 +10,15 @@ function loadCart(){
     getCart();
 }
 
+//-- EventHandler --//
+$(document).on(
+    'click', '#userData', setUserDataActive,
+    'click', '#userCart', setUserCartActive,
+    'click', '#invoices', setUserInvoicesActive,
+    );
+
 $(document).ready(function(){
-//-- Initialize Customerprofile --//
+//-- Initialize  --//
     loadProfile();
     loadUserData();
 });
@@ -38,13 +45,13 @@ function loadProfile(){
     let profileCardNavbar = '<div class="card" id="cardStammDaten">'
                            +'<div class="card-header" id="stammDatenHeader">'
                            +'<ul class="nav nav-tabs card-header-tabs">'
-                           +'<li class="nav-item" id="userData" onclick="setUserDataActive()">'
+                           +'<li class="nav-item" id="userData" >' // onclick="setUserDataActive()"
                            +'<a class="nav-link active" id="userData-link">Stammdaten</a>'
                            +'</li>'
-                           +'<li class="nav-item" id="userCart" onclick="setUserCartActive()">'
+                           +'<li class="nav-item" id="userCart" >' // onclick="setUserCartActive()"
                            +'<a class="nav-link" id="userCart-link">Warenkorb</a>'
                            +'</li>'
-                           +'<li class="nav-item" id="invoices" onclick="setUserInvoicesActive()">'
+                           +'<li class="nav-item" id="invoices" >' // onclick="setUserInvoicesActive()"
                            +'<a class="nav-link" id="invoices-link">Rechnungen</a>'
                            +'</li>'
                            +'</ul>'

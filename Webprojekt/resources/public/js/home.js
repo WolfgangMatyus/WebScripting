@@ -1,3 +1,6 @@
+//-- Imports --//
+import {getProducts, getUser, getCart} from './global.js';
+
 //--- VARIABLES ---//
 var products = [];
 var cartData = [];
